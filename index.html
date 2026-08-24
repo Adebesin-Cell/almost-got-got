@@ -270,7 +270,8 @@
   .book-close{ border:1px solid var(--line-2); background:var(--page); color:var(--ink); border-radius:2px; padding:.5rem .9rem; font-family:"Jost",sans-serif; font-size:.78rem; letter-spacing:.03em; cursor:pointer; }
   .book-close:hover{ border-color:var(--ink); }
   .book-stage{ flex:1; display:flex; align-items:center; justify-content:center; gap:clamp(.4rem,2vw,1.6rem); padding:clamp(1rem,3vw,2rem) .5rem; perspective:2600px; min-height:0; }
-  .book-nav{ flex:none; width:clamp(38px,6vw,52px); height:clamp(38px,6vw,52px); border-radius:50%; border:1px solid var(--line-2); background:var(--page); color:var(--ink); font-size:1.4rem; cursor:pointer; display:grid; place-items:center; }
+  .book-nav{ flex:none; width:clamp(38px,6vw,52px); height:clamp(38px,6vw,52px); border-radius:50%; border:1px solid var(--line-2); background:var(--page); color:var(--ink); cursor:pointer; display:grid; place-items:center; padding:0; }
+  .book-nav svg{ width:42%; height:42%; display:block; }
   .book-nav:hover{ border-color:var(--ink); }
   .book-nav:disabled{ opacity:.25; cursor:default; }
   .book{ position:relative; width:min(620px,90vw); height:min(74vh,720px); transform-style:preserve-3d; flex:none; }
@@ -873,9 +874,9 @@
     <button class="book-close" id="bookClose" type="button" aria-label="Close book view">Close ✕</button>
   </div>
   <div class="book-stage">
-    <button class="book-nav prev" id="bookPrev" type="button" aria-label="Previous page">‹</button>
+    <button class="book-nav prev" id="bookPrev" type="button" aria-label="Previous page"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="book" id="bookLeaves"></div>
-    <button class="book-nav next" id="bookNext" type="button" aria-label="Next page">›</button>
+    <button class="book-nav next" id="bookNext" type="button" aria-label="Next page"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>
   <p class="book-hint">← → keys · tap page edges to turn · Esc to close</p>
 </div>
