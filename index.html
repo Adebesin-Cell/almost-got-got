@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Almost Got Got — a field guide to social engineering</title>
+<meta name="description" content="Fifteen scams, the habits that beat them, and the real cases behind each. A FUTA CPE 510 policy project.">
+<link rel="icon" type="image/png" href="/icon.png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta name="theme-color" content="#15120F">
+<meta name="apple-mobile-web-app-title" content="Almost Got Got">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Almost Got Got">
+<meta property="og:title" content="Almost Got Got — a field guide to social engineering">
+<meta property="og:description" content="Fifteen scams, the habits that beat them, and the real cases behind each. A FUTA CPE 510 policy project.">
+<meta property="og:url" content="https://almostgotgot.vercel.app/">
+<meta property="og:image" content="https://almostgotgot.vercel.app/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Almost Got Got — a field guide to social engineering">
+<meta name="twitter:description" content="Fifteen scams, the habits that beat them, and the real cases behind each.">
+<meta name="twitter:image" content="https://almostgotgot.vercel.app/og.png">
+</head>
+<body>
+<title>Almost Got Got</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,900;9..144,1,400&family=Jost:wght@300;400;500;600&display=swap">
+
+<style>
+  :root{
+    --bg:#F4F3F0; --page:#FFFFFF; --ink:#15120F; --soft:#6C6862; --faint:#9C978F;
+    --line:#EAE7E1; --line-2:#DCD8D1; --move:#A5321E; --counter:#1F6B48;
+    --edge: 0 1px 2px rgba(20,17,14,.04);
+    --sh-book: 0 10px 26px rgba(20,17,14,.10);
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme:dark){
+      --bg:#0E0D0B; --page:#171512; --ink:#F2EEE7; --soft:#A29D95; --faint:#6F6A63;
+      --line:#242119; --line-2:#332E26; --move:#E1755C; --counter:#54B487;
+      --edge: 0 1px 2px rgba(0,0,0,.3);
+      --sh-book: 0 12px 44px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E0D0B; --page:#171512; --ink:#F2EEE7; --soft:#A29D95; --faint:#6F6A63;
+    --line:#242119; --line-2:#332E26; --move:#E1755C; --counter:#54B487;
+    --edge: 0 1px 2px rgba(0,0,0,.3);
+    --sh-book: 0 12px 44px rgba(0,0,0,.5);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Jost", ui-sans-serif, system-ui, sans-serif; font-weight:400;
+    font-size:clamp(15.5px,15px + .2vw,17px); line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ font-family:"Fraunces", Georgia, serif; font-weight:600; line-height:1.05; margin:0; text-wrap:balance; letter-spacing:-.005em; }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ width:100%; max-width:1080px; margin-inline:auto; padding-inline:clamp(1.25rem,5vw,3rem); }
+  .col{ max-width:64ch; }
+  .label{ font-family:"Jost",sans-serif; font-weight:500; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); }
+  .num{ font-variant-numeric:tabular-nums; }
+  .serif-it{ font-family:"Fraunces",serif; font-style:italic; }
+
+  /* ---------- Masthead ---------- */
+  .masthead{ position:sticky; top:0; z-index:40; background:color-mix(in srgb,var(--bg) 88%, transparent); backdrop-filter:saturate(1.2) blur(8px); border-bottom:1px solid var(--line); }
+  .mast-in{ display:flex; align-items:center; gap:1.5rem; height:60px; }
+  .logo{ display:flex; align-items:center; gap:.6rem; font-family:"Fraunces",serif; font-weight:600; font-size:1.05rem; }
+  .logo-mark{ width:22px; height:22px; background:var(--ink); color:var(--page); display:grid; place-items:center; font-family:"Fraunces",serif; font-weight:900; font-size:.8rem; border-radius:2px; }
+  .mast-nav{ display:flex; gap:1.5rem; margin-left:auto; font-size:.82rem; letter-spacing:.04em; }
+  .mast-nav a{ color:var(--soft); padding:.2rem 0; border-bottom:1px solid transparent; }
+  .mast-nav a:hover{ color:var(--ink); border-color:var(--ink); }
+  .mast-actions{ display:flex; align-items:center; gap:.6rem; }
+  .mini-btn{ font-family:"Jost",sans-serif; font-size:.78rem; letter-spacing:.03em; font-weight:500; padding:.5rem .9rem; border:1px solid var(--ink); background:var(--ink); color:var(--page); border-radius:2px; cursor:pointer; }
+  .mini-btn:hover{ opacity:.86; }
+  .icon-btn{ width:34px; height:34px; border:1px solid var(--line-2); background:var(--page); color:var(--ink); border-radius:2px; cursor:pointer; font-size:.95rem; display:grid; place-items:center; }
+  @media (max-width:720px){ .mast-nav{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:clamp(4rem,11vw,8.5rem) 0 clamp(3rem,6vw,5rem); border-bottom:1px solid var(--line); }
+  .hero .kicker{ display:flex; gap:1rem; align-items:center; margin-bottom:2rem; }
+  .hero .kicker .r{ height:1px; flex:1; background:var(--line-2); }
+  h1.title{ font-size:clamp(3.4rem,13vw,8.5rem); font-weight:900; letter-spacing:-.03em; line-height:.9; }
+  h1.title em{ font-style:italic; font-weight:400; }
+  .hero-sub{ margin-top:1.8rem; max-width:46ch; font-size:clamp(1.05rem,1rem + .45vw,1.35rem); color:var(--ink); line-height:1.5; }
+  .hero-sub b{ font-weight:500; }
+  .hero-foot{ margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem 3rem; align-items:baseline; }
+  .hero-foot .byline{ font-size:.85rem; color:var(--soft); max-width:34ch; }
+  .hero-cta{ display:inline-flex; align-items:center; gap:.5rem; font-family:"Jost",sans-serif; font-weight:500; font-size:.9rem; letter-spacing:.03em; border:1px solid var(--ink); padding:.7rem 1.2rem; border-radius:2px; cursor:pointer; background:transparent; color:var(--ink); }
+  .hero-cta:hover{ background:var(--ink); color:var(--page); }
+
+  /* ---------- Section frame ---------- */
+  section{ padding:clamp(3.5rem,7vw,6rem) 0; border-bottom:1px solid var(--line); }
+  .sec-mark{ display:flex; align-items:baseline; gap:1rem; margin-bottom:2.6rem; }
+  .sec-mark .no{ font-family:"Fraunces",serif; font-weight:400; font-size:1rem; color:var(--faint); font-variant-numeric:tabular-nums; }
+  .sec-mark h2{ font-size:clamp(1.9rem,4.5vw,3rem); font-weight:600; }
+  .sec-mark .of{ margin-left:auto; }
+  .sec-intro{ color:var(--soft); font-size:1.06rem; margin-top:-1.4rem; margin-bottom:2.8rem; max-width:56ch; }
+
+  /* ---------- Contents index ---------- */
+  #contents{ padding-block:clamp(2.5rem,5vw,4rem); }
+  .toc{ display:grid; grid-template-columns:repeat(2,1fr); gap:0 3.5rem; }
+  .toc-item{ display:flex; align-items:baseline; gap:1rem; padding:.85rem 0; border-bottom:1px solid var(--line); }
+  .toc-item .tn{ font-variant-numeric:tabular-nums; color:var(--faint); font-size:.85rem; width:1.8rem; }
+  .toc-item .tt{ font-family:"Fraunces",serif; font-size:1.05rem; }
+  .toc-item .td{ margin-left:auto; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); }
+  .toc-item.pending .tt{ color:var(--faint); }
+  @media (max-width:640px){ .toc{ grid-template-columns:1fr; } }
+
+  /* ---------- Plays ---------- */
+  .plays{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.1rem; }
+  .play{ perspective:1600px; }
+  .flip{ all:unset; display:block; width:100%; cursor:pointer; }
+  .flip:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+  .flip-inner{ display:grid; transform-style:preserve-3d; transition:transform .6s cubic-bezier(.4,0,.2,1); min-height:326px; }
+  .flip[aria-pressed="true"] .flip-inner{ transform:rotateY(180deg); }
+  .face{
+    grid-area:1/1; -webkit-backface-visibility:hidden; backface-visibility:hidden;
+    background:var(--page); border:1px solid var(--line-2); border-radius:2px; box-shadow:var(--edge);
+    padding:1.7rem 1.55rem 1.5rem; display:flex; flex-direction:column; text-align:left;
+  }
+  .flip:hover .face{ border-color:var(--ink); }
+  .face-back{ transform:rotateY(180deg); }
+  .card-no{ font-variant-numeric:tabular-nums; font-size:.8rem; color:var(--faint); }
+  .card-name{ font-family:"Fraunces",serif; font-weight:600; font-size:1.32rem; line-height:1.08; margin:.5rem 0 1.3rem; }
+  .card-emoji{ display:none; } /* kept for the book builder; hidden in web cards */
+  .bl-label{ font-family:"Jost",sans-serif; font-weight:500; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--soft); }
+  .bl-rule{ width:26px; height:2px; margin:.5rem 0 .8rem; background:var(--soft); }
+  .face-front .bl-rule{ background:var(--move); }
+  .face-back .bl-label.counter{ color:var(--counter); }
+  .face-back .bl-rule{ background:var(--counter); }
+  .body{ font-size:.97rem; line-height:1.5; color:var(--ink); }
+  .flip-hint{ margin-top:auto; padding-top:1.1rem; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); display:flex; align-items:center; gap:.4rem; }
+  .flip:hover .flip-hint{ color:var(--ink); }
+  .example{ margin-top:1.1rem; padding-top:.95rem; border-top:1px solid var(--line); }
+  .example .ex-l{ font-family:"Jost",sans-serif; font-weight:500; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); }
+  .example p{ font-size:.85rem; color:var(--soft); margin-top:.4rem; line-height:1.45; }
+  .example a{ border-bottom:1px solid var(--line-2); }
+  .credit{ font-size:.74rem; color:var(--faint); margin-top:.7rem; }
+
+  .ghost{ border:1px dashed var(--line-2); border-radius:2px; min-height:120px; display:flex; flex-direction:column; justify-content:center; gap:.5rem; padding:1.5rem 1.55rem; }
+  .ghost .card-no{ color:var(--faint); }
+  .ghost .card-name{ margin:.2rem 0 0; color:var(--faint); font-size:1.14rem; }
+  .ghost .g-status{ font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); }
+
+  /* ---------- Pattern ---------- */
+  .stat-row{ display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line-2); border-radius:2px; overflow:hidden; margin-bottom:3rem; background:var(--page); box-shadow:var(--edge); }
+  .stat{ padding:1.4rem 1.3rem; border-right:1px solid var(--line); }
+  .stat:last-child{ border-right:none; }
+  .stat .n{ font-family:"Fraunces",serif; font-weight:600; font-size:clamp(1.9rem,4vw,2.5rem); line-height:1; font-variant-numeric:tabular-nums; }
+  .stat .l{ font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); margin-top:.55rem; }
+  .findings{ display:grid; gap:0; }
+  .finding{ display:grid; grid-template-columns:auto 1fr; gap:1.4rem 2rem; padding:1.6rem 0; border-top:1px solid var(--line); align-items:start; }
+  .finding:last-child{ border-bottom:1px solid var(--line); }
+  .finding .f-num{ font-family:"Fraunces",serif; font-size:1.1rem; color:var(--faint); font-variant-numeric:tabular-nums; padding-top:.15rem; }
+  .finding .f-title{ font-family:"Fraunces",serif; font-weight:600; font-size:1.25rem; margin-bottom:.4rem; }
+  .finding p{ color:var(--soft); max-width:60ch; }
+  @media (max-width:640px){ .stat-row{ grid-template-columns:repeat(2,1fr); } .stat:nth-child(2){ border-right:none; } .stat:nth-child(1),.stat:nth-child(2){ border-bottom:1px solid var(--line); } }
+
+  /* ---------- Principles / habits ---------- */
+  .habits{ display:grid; gap:0; }
+  .habit{ display:grid; grid-template-columns:auto 1fr; gap:1.2rem 2.2rem; padding:1.7rem 0; border-top:1px solid var(--line); align-items:baseline; }
+  .habit:last-child{ border-bottom:1px solid var(--line); }
+  .habit .h-num{ font-family:"Fraunces",serif; font-weight:600; font-size:clamp(1.5rem,3.5vw,2.2rem); color:var(--faint); font-variant-numeric:tabular-nums; line-height:1; }
+  .habit .h-head{ font-family:"Fraunces",serif; font-weight:600; font-size:clamp(1.25rem,2.6vw,1.7rem); line-height:1.12; margin-bottom:.45rem; }
+  .habit p{ color:var(--soft); max-width:58ch; }
+
+  /* ---------- Policy ---------- */
+  .elements{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:3rem; }
+  .el{ border:1px solid var(--line-2); border-radius:2px; padding:1.3rem 1.2rem; background:var(--page); box-shadow:var(--edge); }
+  .el.active{ border-color:var(--ink); background:var(--ink); color:var(--page); }
+  .el .el-n{ font-variant-numeric:tabular-nums; font-size:.78rem; color:var(--faint); }
+  .el.active .el-n{ color:color-mix(in srgb, var(--page) 60%, transparent); }
+  .el h4{ font-size:1.05rem; margin:.5rem 0 .4rem; }
+  .el p{ font-size:.82rem; color:var(--soft); line-height:1.45; }
+  .el.active p{ color:color-mix(in srgb, var(--page) 78%, transparent); }
+  .el .tagme{ font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; margin-top:.7rem; display:block; color:color-mix(in srgb,var(--page) 70%, transparent); }
+  @media (max-width:760px){ .elements{ grid-template-columns:repeat(2,1fr); } }
+  .rules{ display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:1.6rem 2.4rem; }
+  .rule{ }
+  .rule .r-num{ font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); }
+  .rule h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.2rem; margin:.5rem 0 .5rem; }
+  .rule p{ color:var(--soft); font-size:.95rem; }
+  .cite{ font-size:.78rem; color:var(--faint); font-style:italic; font-family:"Fraunces",serif; }
+  .epigraph{ border-left:2px solid var(--ink); padding:.1rem 0 .1rem 1.5rem; margin:0 0 2.8rem; max-width:58ch; }
+  .epigraph p{ font-family:"Fraunces",serif; font-style:italic; font-size:clamp(1.15rem,1rem + .5vw,1.4rem); line-height:1.35; color:var(--ink); }
+  .epigraph cite{ display:block; font-family:"Jost",sans-serif; font-style:normal; font-size:.78rem; letter-spacing:.05em; color:var(--faint); margin-top:.8rem; }
+
+  /* ---------- Appendix / report ---------- */
+  .report{ }
+  .steps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0; border-top:1px solid var(--line); }
+  .step{ padding:1.6rem 1.4rem 1.6rem 0; border-right:1px solid var(--line); }
+  .step:last-child{ border-right:none; }
+  .step .s-n{ font-variant-numeric:tabular-nums; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); }
+  .step h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.12rem; margin:.5rem 0 .4rem; }
+  .step p{ color:var(--soft); font-size:.9rem; }
+  @media (max-width:640px){ .step{ border-right:none; border-bottom:1px solid var(--line); padding-right:0; } .step:last-child{ border-bottom:none; } }
+
+  /* ---------- Sources ---------- */
+  .sources{ display:grid; gap:0; }
+  .src{ display:grid; grid-template-columns:auto 1fr; gap:1.4rem 2rem; padding:1.3rem 0; border-top:1px solid var(--line); }
+  .src:last-child{ border-bottom:1px solid var(--line); }
+  .src .s-k{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); padding-top:.2rem; }
+  .src .s-b{ font-family:"Fraunces",serif; font-size:1.02rem; line-height:1.4; }
+  .src .s-b span{ display:block; font-family:"Jost",sans-serif; font-size:.82rem; color:var(--soft); margin-top:.25rem; }
+
+  /* ---------- Footer ---------- */
+  footer{ padding:clamp(3rem,6vw,5rem) 0 3.5rem; }
+  .foot-grid{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:2rem; }
+  .foot-brand{ font-family:"Fraunces",serif; font-weight:900; font-size:1.6rem; }
+  .foot-meta{ max-width:40ch; color:var(--soft); font-size:.88rem; margin-top:.6rem; }
+  .foot-right{ text-align:right; font-size:.85rem; color:var(--soft); line-height:1.6; }
+  .contributors{ margin-top:2.6rem; padding-top:1.6rem; border-top:1px solid var(--line); }
+  .contributors .c-l{ font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--faint); }
+  .chips{ display:flex; flex-wrap:wrap; gap:.5rem .7rem; margin-top:.9rem; }
+  .chip{ font-size:.82rem; color:var(--soft); }
+  .chip:not(:last-child)::after{ content:"·"; margin-left:.7rem; color:var(--faint); }
+  .foot-legal{ margin-top:2rem; font-size:.74rem; color:var(--faint); }
+
+  /* ---------- reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .flip-inner{ transition:none; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+
+  /* ---------- Closing note ---------- */
+  #close .col p{ font-size:1.12rem; line-height:1.6; margin-bottom:1.2rem; color:var(--ink); }
+  #close .col p:last-child{ font-family:"Fraunces",serif; font-style:italic; font-size:1.3rem; color:var(--ink); margin-bottom:0; }
+
+  /* ---------- Mobile fit / overflow guard ---------- */
+  html, body{ overflow-x:clip; max-width:100%; }
+  @media (max-width:600px){
+    .hero .kicker{ flex-wrap:wrap; row-gap:.4rem; }
+    .hero .kicker .r, .hero .kicker span:last-child{ display:none; }
+    .sec-mark{ flex-wrap:wrap; row-gap:.3rem; }
+    .sec-mark .of{ display:none; }
+    .hero-sub, .sec-intro, .lede, .col{ max-width:100%; }
+    .toc-item .td{ display:none; }
+  }
+  @media (max-width:760px){
+    .book{ width:min(620px,92vw); }
+    .book-stage{ gap:0; padding:.6rem .3rem; }
+    .book-nav{ position:fixed; bottom:1.1rem; z-index:6; }
+    .book-nav.prev{ left:1rem; } .book-nav.next{ right:1rem; }
+    .book-hint{ display:none; }
+  }
+  @media (max-width:560px){
+    .leaf-inner{ padding:1.7rem 1.5rem; }
+    .leaf .edition{ letter-spacing:.12em; }
+    .leaf-inner.cover h1{ font-size:clamp(2rem,10vw,3rem); }
+    .leaf-inner.cover .cover-sub{ font-size:1.05rem; max-width:100%; }
+    .leaf-inner.chapter .ch-title{ font-size:clamp(1.9rem,8vw,2.6rem); }
+  }
+
+  /* ============ BOOK VIEW ============ */
+  .book-overlay{
+    position:fixed; inset:0; z-index:70; display:none; flex-direction:column; background:var(--bg);
+  }
+  .book-overlay.on{ display:flex; }
+  .book-bar{ display:flex; align-items:center; justify-content:space-between; padding:.9rem clamp(1rem,4vw,2rem); border-bottom:1px solid var(--line); }
+  .book-counter{ font-size:.78rem; color:var(--faint); letter-spacing:.14em; font-variant-numeric:tabular-nums; }
+  .book-close{ border:1px solid var(--line-2); background:var(--page); color:var(--ink); border-radius:2px; padding:.5rem .9rem; font-family:"Jost",sans-serif; font-size:.78rem; letter-spacing:.03em; cursor:pointer; }
+  .book-close:hover{ border-color:var(--ink); }
+  .book-stage{ flex:1; display:flex; align-items:center; justify-content:center; gap:clamp(.4rem,2vw,1.6rem); padding:clamp(1rem,3vw,2rem) .5rem; perspective:2600px; min-height:0; }
+  .book-nav{ flex:none; width:clamp(38px,6vw,52px); height:clamp(38px,6vw,52px); border-radius:50%; border:1px solid var(--line-2); background:var(--page); color:var(--ink); font-size:1.4rem; cursor:pointer; display:grid; place-items:center; }
+  .book-nav:hover{ border-color:var(--ink); }
+  .book-nav:disabled{ opacity:.25; cursor:default; }
+  .book{ position:relative; width:min(620px,90vw); height:min(74vh,720px); transform-style:preserve-3d; flex:none; }
+  .leaf{
+    position:absolute; inset:0; transform-origin:left center; transform:rotateY(0deg);
+    transition:transform .7s cubic-bezier(.4,.05,.2,1); -webkit-backface-visibility:hidden; backface-visibility:hidden;
+    background:var(--page); color:var(--ink); border:1px solid var(--line-2); border-left-width:2px;
+    border-radius:1px 3px 3px 1px; box-shadow:none; overflow:auto;
+  }
+  .leaf.flipped{ transform:rotateY(-179.9deg); }
+  .leaf.turning{ z-index:1000 !important; }
+  /* only the page on top (or actively turning) casts a shadow, avoids stacked-halo */
+  .leaf[aria-hidden="false"], .leaf.turning{ box-shadow:var(--sh-book); }
+  .leaf-inner{ min-height:100%; padding:clamp(2rem,5vw,3.4rem); display:flex; flex-direction:column; }
+  .leaf h1,.leaf h2,.leaf h3{ font-family:"Fraunces",serif; }
+  .leaf .folio{ margin-top:auto; padding-top:1.8rem; text-align:center; font-size:.74rem; letter-spacing:.22em; color:var(--faint); font-variant-numeric:tabular-nums; }
+  .leaf .edition{ font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--faint); }
+
+  .leaf-inner.cover, .leaf-inner.colophon{ justify-content:center; align-items:center; text-align:center; }
+  .leaf-inner.cover .emblem{ width:34px; height:34px; background:var(--ink); color:var(--page); display:grid; place-items:center; font-family:"Fraunces",serif; font-weight:900; border-radius:2px; margin:1.6rem 0; }
+  .leaf-inner.cover h1{ font-weight:900; font-size:clamp(2.6rem,9vw,4rem); line-height:.9; letter-spacing:-.02em; }
+  .leaf-inner.cover h1 em{ font-style:italic; font-weight:400; }
+  .leaf-inner.cover .cover-rule{ width:52px; height:1px; background:var(--line-2); margin:1.6rem 0; }
+  .leaf-inner.cover .cover-sub{ font-family:"Fraunces",serif; font-style:italic; font-size:1.15rem; color:var(--ink); max-width:24ch; }
+  .leaf-inner.cover .cover-by{ margin-top:2rem; font-size:.74rem; letter-spacing:.05em; color:var(--soft); max-width:32ch; }
+
+  .leaf-inner.chapter{ justify-content:center; }
+  .leaf-inner.chapter .ch-num{ font-size:.78rem; letter-spacing:.24em; text-transform:uppercase; color:var(--faint); }
+  .leaf-inner.chapter .ch-title{ font-weight:900; font-size:clamp(2.2rem,7vw,3.2rem); line-height:1; margin:.6rem 0; }
+  .leaf-inner.chapter .ch-rule{ width:64px; height:1px; background:var(--ink); margin:.3rem 0 1.4rem; }
+  .leaf-inner.chapter .ch-intro{ font-size:1.1rem; line-height:1.55; color:var(--soft); max-width:34ch; }
+  .leaf-inner.chapter .ch-intro::first-letter{ font-family:"Fraunces",serif; font-weight:900; font-size:3em; line-height:.7; float:left; margin:.05em .1em 0 0; color:var(--ink); }
+
+  .leaf-inner.entry .entry-head{ display:flex; align-items:baseline; justify-content:space-between; }
+  .leaf-inner.entry .entry-no{ font-family:"Fraunces",serif; font-size:.95rem; color:var(--faint); font-variant-numeric:tabular-nums; }
+  .leaf-inner.entry h2{ font-weight:600; font-size:clamp(1.6rem,5vw,2.1rem); line-height:1.05; margin:.6rem 0 1.4rem; }
+  .leaf .bl{ margin-bottom:1.15rem; }
+  .leaf .bl-l{ font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; display:block; margin-bottom:.3rem; color:var(--soft); }
+  .leaf .bl.move .bl-l{ color:var(--move); }
+  .leaf .bl.counter .bl-l{ color:var(--counter); }
+  .leaf .bl p{ font-size:1rem; line-height:1.55; color:var(--ink); }
+  .leaf .bl.counter{ border-left:2px solid var(--counter); padding-left:1rem; }
+  .leaf .bl.story{ border-top:1px solid var(--line); padding-top:.9rem; }
+  .leaf .bl.story .bl-l{ color:var(--faint); }
+  .leaf .bl.story p{ font-size:.9rem; color:var(--soft); }
+  .leaf .bl.story .cred{ font-size:.74rem; color:var(--faint); margin-top:.5rem; }
+  .leaf .bl.story .cred a{ border-bottom:1px solid var(--line-2); }
+
+  .leaf-inner.reports .f-item{ padding:1.2rem 0; border-top:1px solid var(--line); }
+  .leaf-inner.reports .f-item:first-of-type{ border-top:none; }
+  .leaf-inner.reports .f-item .fn{ font-size:.8rem; color:var(--faint); font-variant-numeric:tabular-nums; }
+  .leaf-inner.reports .f-item h3{ font-weight:600; font-size:1.2rem; margin:.3rem 0 .4rem; }
+  .leaf-inner.reports .f-item p{ font-size:.94rem; color:var(--soft); line-height:1.5; }
+  .leaf-inner.reports .statline{ margin-top:auto; padding-top:1.2rem; display:flex; gap:1.4rem; flex-wrap:wrap; }
+  .leaf-inner.reports .statline span{ font-size:.8rem; color:var(--soft); }
+  .leaf-inner.reports .statline b{ font-family:"Fraunces",serif; font-weight:600; }
+
+  .leaf-inner.foreword > .edition{ }
+  .leaf-inner.foreword h2{ font-weight:600; font-size:clamp(1.5rem,4.5vw,2rem); margin:.6rem 0 1.2rem; line-height:1.08; }
+  .leaf .hlist{ list-style:none; counter-reset:h; padding:0; margin:0; }
+  .leaf .hlist li{ counter-increment:h; font-family:"Fraunces",serif; font-size:1.12rem; line-height:1.25; padding:.75rem 0 .75rem 2.3rem; border-top:1px solid var(--line); position:relative; }
+  .leaf .hlist li:first-child{ border-top:none; }
+  .leaf .hlist li::before{ content:counter(h,decimal-leading-zero); position:absolute; left:0; top:.95rem; font-family:"Jost",sans-serif; font-size:.72rem; color:var(--faint); font-variant-numeric:tabular-nums; letter-spacing:.05em; }
+
+  .leaf .ruleitem,.leaf .ap-step{ margin-bottom:1.3rem; }
+  .leaf .rn{ font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); }
+  .leaf .ruleitem h3,.leaf .ap-step h3{ font-weight:600; font-size:1.2rem; margin:.3rem 0 .35rem; }
+  .leaf .ruleitem p,.leaf .ap-step p{ font-size:.97rem; line-height:1.5; color:var(--soft); }
+  .leaf-inner.appendix>h2{ font-weight:600; font-size:clamp(1.6rem,5vw,2rem); margin:.5rem 0 1.3rem; }
+
+  .leaf-inner.colophon h2{ font-weight:600; font-size:1.9rem; margin-bottom:.6rem; }
+  .leaf-inner.colophon .col-lead{ font-family:"Fraunces",serif; font-style:italic; color:var(--soft); max-width:30ch; }
+  .leaf-inner.colophon .col-block{ margin-top:1.6rem; }
+  .leaf-inner.colophon .col-block .edition{ display:block; margin-bottom:.5rem; }
+  .leaf-inner.colophon .col-block p{ font-size:.92rem; color:var(--ink); max-width:36ch; margin-inline:auto; }
+  .leaf-inner.colophon .col-legal{ margin-top:1.8rem; font-size:.72rem; line-height:1.7; color:var(--faint); max-width:38ch; }
+
+  .book-hint{ text-align:center; padding:.7rem 1rem 1.1rem; font-size:.72rem; color:var(--faint); letter-spacing:.05em; border-top:1px solid var(--line); }
+  @media (prefers-reduced-motion:reduce){ .leaf{ transition:none; } }
+  @media (max-width:520px){ .book-nav{ position:fixed; bottom:1rem; z-index:5; } .book-nav.prev{ left:1rem; } .book-nav.next{ right:1rem; } .book-hint{ display:none; } }
+</style>
+
+<a id="top"></a>
+<header class="masthead">
+  <div class="wrap mast-in">
+    <a class="logo" href="#top"><span class="logo-mark">A</span> Almost Got Got</a>
+    <nav class="mast-nav">
+      <a href="#plays">Plays</a>
+      <a href="#pattern">Pattern</a>
+      <a href="#policy">Policy</a>
+      <a href="#sources">Sources</a>
+    </nav>
+    <div class="mast-actions">
+      <button class="mini-btn" id="openBook" type="button">Read as book</button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch theme">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker"><span class="label">A field guide to social engineering</span><span class="r"></span><span class="label">CPE 510 · FUTA</span></div>
+    <h1 class="title">Almost<br><em>Got</em> Got</h1>
+    <p class="hero-sub">Somebody will try to trick you this year: a phone call, a fake link, a voice that sounds <b>exactly</b> like someone you trust. This is the field guide to their fifteen moves, and the one line that beats each.</p>
+    <div class="hero-foot">
+      <button class="hero-cta" id="openBook2" type="button">Read as a book →</button>
+      <p class="byline">A malware-prevention <b>Policy</b> project, built from a survey of real scam reports and grounded in NIST SP 800-83.</p>
+    </div>
+  </div>
+</div>
+
+<section id="contents">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">00</span><h2>Contents</h2><span class="label of">Fifteen plays</span></div>
+    <div class="toc">
+      <a class="toc-item reveal" href="#plays"><span class="tn num">01</span><span class="tt">OTP &amp; PIN theft</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">02</span><span class="tt">WhatsApp &amp; account takeover</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">03</span><span class="tt">Fake scholarship, job &amp; NYSC</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">04</span><span class="tt">Fake login pages</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">05</span><span class="tt">Romance &amp; marketplace scams</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">06</span><span class="tt">Phishing links</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">07</span><span class="tt">Deepfake voice &amp; AI clones</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">08</span><span class="tt">Fake ICT / lecturer</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">09</span><span class="tt">"I paid you twice" refund</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">10</span><span class="tt">The "found" USB drive</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">11</span><span class="tt">QR-code &amp; free-wifi traps</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">12</span><span class="tt">Tailgating into labs</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">13</span><span class="tt">Pig butchering (crypto romance)</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">14</span><span class="tt">MFA fatigue / push-bombing</span><span class="td">Play</span></a>
+      <a class="toc-item reveal" href="#plays"><span class="tn num">15</span><span class="tt">The "phantom hacker" callback</span><span class="td">Play</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="principles">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">01</span><h2>First, the habits</h2><span class="label of">Beats almost everything</span></div>
+    <p class="sec-intro reveal">You don't need to know every trick. A handful of habits stops most of them before they start.</p>
+    <div class="habits">
+      <div class="habit reveal"><span class="h-num num">01</span><div><h3 class="h-head">Slow down. Urgency is the weapon.</h3><p>Every scam needs you to act now, before you think, before you check. The rush is the tell. Give it ten minutes and most of them fall apart.</p></div></div>
+      <div class="habit reveal"><span class="h-num num">02</span><div><h3 class="h-head">If you're not sure, ask someone.</h3><p>A moment of hesitation can save you everything. Ask a friend, ask the bank, ask anyone. No real request ever suffers from being checked.</p></div></div>
+      <div class="habit reveal"><span class="h-num num">03</span><div><h3 class="h-head">Don't tap links you didn't expect.</h3><p>Not the "your account is locked" text, not the prize, not the delivery notice. Go to the site yourself. A link is the cheapest thing a scammer owns.</p></div></div>
+      <div class="habit reveal"><span class="h-num num">04</span><div><h3 class="h-head">Your codes and passwords are yours alone.</h3><p>OTP, PIN, password, nobody real ever needs them. Not the bank, not "support," not a friend in a hurry. The moment someone asks, that's the scam.</p></div></div>
+      <div class="habit reveal"><span class="h-num num">05</span><div><h3 class="h-head">Verify on a channel you already trust.</h3><p>Call back on the number you saved, not the one they gave you. Reach them on an app you already use. Never let them choose how you check.</p></div></div>
+      <div class="habit reveal"><span class="h-num num">06</span><div><h3 class="h-head">A face or a voice is no longer proof.</h3><p>AI can fake a voice note, even a video call. Trust the check, not the familiarity. If it sounds like someone you know asking for money, verify anyway.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="plays">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">02</span><h2>The plays</h2><span class="label of">Move &amp; counter</span></div>
+    <p class="sec-intro reveal">Every scam is a move with a counter. Tap a card to turn it: the front is the attacker's move, the back is how you beat it.</p>
+    <div class="plays">
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 01</span>
+              <span class="card-emoji">🔢</span>
+              <h3 class="card-name">OTP &amp; PIN theft</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A caller with an official manner says your account is at risk, and to secure it you must read back the code that just arrived by SMS. That code is a one-time password, the bank's own key. Spoken aloud, it opens the account.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Treat any code sent to your phone as a password you never say out loud. No bank, no "support," no colleague ever needs it. The request itself is the fraud.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>Every bank repeats one line, staff will never ask for your OTP or PIN. The scam survives only because a confident voice is easier to believe than the warning.</p></div>
+              <p class="credit">Researched by Emmanuel Alonge</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 02</span>
+              <span class="card-emoji">💬</span>
+              <h3 class="card-name">WhatsApp &amp; account takeover</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A message arrives from someone you trust: an emergency, an urgent need for money, and "a code I got by mistake, can you forward it?" Their account is already stolen. Forwarding the code hands yours over next.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">A verification code is never yours to forward, even to family. Confirm any urgent request by calling the person on a number you already have. Turn on two-step verification so one stolen code isn't enough.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>The "friend in trouble, forward the code" takeover is now among the most reported scams on messaging apps, spreading account to account through the very people a victim trusts.</p></div>
+              <p class="credit">Researched by Ayoola Omotayo, Victor Emmanuel &amp; Adeoti Oluwatimilehin</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 03</span>
+              <span class="card-emoji">🎓</span>
+              <h3 class="card-name">Fake scholarship, job &amp; NYSC</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">An official-looking notice offers a scholarship, an NYSC placement, or a job, but first a small "processing fee," or your details "to confirm eligibility." The opportunity is bait. The fee and the data are the payload.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Legitimate opportunities never charge you to apply. Verify every offer on the organisation's official channel before money or personal data ever leaves your hands.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>In 2025 the NDDC publicly warned applicants about fake postgraduate-scholarship emails inviting them to a bogus "verification" designed to extract money. <em>(The PUNCH, 2025.)</em></p></div>
+              <p class="credit">Researched by Peter Aremu</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 04</span>
+              <span class="card-emoji">🔑</span>
+              <h3 class="card-name">Fake login pages</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">An urgent message says your portal, email, or bank needs attention, log in now. The link opens a near-perfect copy of the real site, its address off by a character. Whatever you type is captured at the keystroke.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Never sign in through a link you didn't expect. Type the address yourself, or use a saved bookmark, and check it before entering a password.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>Kaspersky has documented attackers cloning university login pages during the back-to-school rush to harvest student-portal and Microsoft 365 credentials, then using the accounts to spread further. <em>(Kaspersky.)</em></p></div>
+              <p class="credit">Researched by Adesanya Olamide</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 05</span>
+              <span class="card-emoji">💌</span>
+              <h3 class="card-name">Romance &amp; marketplace scams</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A partner online, or a seller with glowing reviews, invests time in your trust. Then the cost appears, customs, a medical bill, payment before delivery. The relationship or the shop existed only to reach that ask.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Money leaving your hands is the moment to stop. A real partner never needs you to cover surprise fees; a seller you can't verify gets cash on delivery, or nothing.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>Marketplace fraud, goods paid for in advance that never arrive, was among the most common patterns in our own survey, and romance fraud costs victims worldwide hundreds of millions each year.</p></div>
+              <p class="credit">Researched by Ayomide Adeniyi</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 06</span>
+              <span class="card-emoji">🎣</span>
+              <h3 class="card-name">Phishing links</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A link arrives by email, SMS, or DM, dressed as your bank, a delivery, or a prize. It leads to a page built for one purpose: to capture whatever you type into it.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Treat an unexpected link as guilty until proven safe. Don't tap it to "check." Reach the site yourself, and never enter details on a page you arrived at by clicking.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>Phishing remains the entry point for the majority of successful attacks, precisely because a convincing copy costs the attacker almost nothing to make.</p></div>
+              <p class="credit">Researched by Adesida Inioluwa</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 07</span>
+              <span class="card-emoji">🗣️</span>
+              <h3 class="card-name">Deepfake voice &amp; AI clones</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A few seconds of a real voice, from a voice note, a story, a podcast, is enough to clone it. A call then arrives sounding exactly like your father, your friend, your boss: "I'm in trouble, send money now, don't tell anyone." The old test, "but it sounded like them", no longer holds.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">A familiar voice is no longer proof. If a voice asks for money or secrets in a hurry, hang up and call back on a number you know. Agree a family safe-word. Urgency is the tell; real people can wait.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>In 2024 the engineering firm Arup lost $25 million after an employee joined a video call in which the CFO and colleagues were all AI-generated deepfakes. <em>(<a href="https://edition.cnn.com/2024/05/16/tech/arup-deepfake-scam-loss-hong-kong-intl-hnk">CNN, 2024.</a>)</em></p></div>
+              <p class="credit">Researched by Adebesin Tolulope</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 08</span>
+              <span class="card-emoji">🧑‍💻</span>
+              <h3 class="card-name">Fake ICT / lecturer</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A caller sounds like ICT, your bank, or a lecturer, friendly, official, using your real name and details found online. They need to "reset your account" or "fix a problem," and just need you to approve something or read out a code. The name is real. The request is the trap.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">A real IT desk or lecturer never needs your password or a login code. Hang up and call back on a number you already have. Verify the person before you approve anything.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>In 2023 the group Scattered Spider simply phoned MGM Resorts' IT desk, posed as an employee using details from LinkedIn, and talked them into resetting the login. The break-in cost MGM about $100 million. <em>(MGM SEC filing; reported 2023–24.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 09</span>
+              <span class="card-emoji">💳</span>
+              <h3 class="card-name">"I paid you twice" refund</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A buyer or "friend" says they paid you by mistake, twice, or too much, and shows a bank alert to prove it. They just need you to send the extra back. The alert is fake, or the payment will bounce. Your refund is real money; theirs never existed.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Never send anything back until the money has truly cleared in your own balance, not an SMS alert, not a screenshot. Anyone who "overpays" and rushes you to refund is running the scam.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>In Nigeria this is the fake bank-alert scam: a buyer flashes a forged "money sent" SMS and collects the goods or the change. The FTC warns that no real refund ever needs you to send money first. <em>(FTC; Legit.ng, 2026.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 10</span>
+              <span class="card-emoji">🔌</span>
+              <h3 class="card-name">The "found" USB drive</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A USB stick turns up, in the lab, the car park, or a package with a "free gift." Curiosity does the rest. Some are built to act like a keyboard the moment they're plugged in, typing commands that install malware. You don't even open a file.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Never plug in a drive you didn't buy yourself. Hand anything you find to ICT, unopened. Curiosity is exactly what it's counting on.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>The FBI warned in 2022 that the group FIN7 was mailing booby-trapped USB drives to companies, posing as Amazon and a health agency, some with fake gift cards, to plant ransomware. <em>(FBI notification, Jan 2022.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 11</span>
+              <span class="card-emoji">📱</span>
+              <h3 class="card-name">QR-code &amp; free-wifi traps</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A QR code on a poster, a parking meter, a restaurant table, sometimes a sticker pasted over the real one. You scan, a page opens that looks right, and it quietly takes your card details or login. You never see the real address behind the code.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Treat any QR code you didn't expect as untrusted. Check for a sticker over the original, preview the link before it opens, and for payments use the official app or type the address yourself.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>The FTC warned in December 2023 that scammers were pasting malicious QR codes over the real ones on parking meters; the FBI followed in 2025 warning about QR codes in unexpected packages. <em>(FTC, 2023; FBI IC3, 2025.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 12</span>
+              <span class="card-emoji">🚪</span>
+              <h3 class="card-name">Tailgating into labs</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">Someone follows you through a secure door, hands full, no badge, "can you hold that?", or shows up in a hi-vis vest as a "technician." Once inside, they can reach unlocked computers, plug in a device, or walk out with equipment. Politeness is the exploit.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Don't hold a secure door for anyone without a badge, let everyone tap in themselves. Verify any "contractor" or "technician" with the department that booked them before letting them through.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>In a documented security test, a consultant in a technician's uniform with a fake ID was politely walked straight into a company's server room, where he planted rogue devices and roamed freely. <em>(MW Group red-team case study.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 13</span>
+              <span class="card-emoji">📈</span>
+              <h3 class="card-name">Pig butchering (crypto romance)</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">A stranger strikes up a warm chat, a dating app, a "wrong number" text, a friendly DM. Over weeks it becomes a friendship or romance. Then they let you in on a "can't-miss" crypto investment on a slick platform showing steady gains. A small withdrawal even works, to build trust. Then you put in more, and the platform, and the friend, vanish.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Never take investment advice from someone you've only met online. A platform pushed by a new online contact is the scam, not the opportunity. Gains you can't freely withdraw are the tell.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>The FBI's 2024 report tied about $5.8 billion in losses to cryptocurrency investment fraud, the category that includes pig butchering, across roughly 42,000 complaints. <em>(FBI IC3, 2024.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 14</span>
+              <span class="card-emoji">🔔</span>
+              <h3 class="card-name">MFA fatigue / push-bombing</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">The attacker already has your password. Now your phone lights up with "Approve login?" prompts, again, and again, and again. They're betting you'll tap Approve to make it stop, or assume it's a glitch. Sometimes a message posing as IT says "approve to clear the alerts."</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">Never approve a login prompt you didn't start yourself. A burst of them means someone already has your password, change it and tell ICT. Where you can, use number-matching or a passkey instead of simple tap-to-approve.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>In 2022 the Lapsus$ group spammed an Uber contractor with MFA prompts, then messaged them on WhatsApp posing as Uber IT until they approved, opening the door to Uber's internal systems. <em>(Reported 2022.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="play reveal">
+        <button class="flip" aria-pressed="false" type="button">
+          <div class="flip-inner">
+            <div class="face face-front">
+              <span class="card-no num">No. 15</span>
+              <span class="card-emoji">📞</span>
+              <h3 class="card-name">The "phantom hacker" callback</h3>
+              <span class="bl-label">The move</span><span class="bl-rule"></span>
+              <p class="body">It comes in layers. First a "tech support" alert gets you to install remote-access software. Then your "bank" calls: your money is under attack, move it to a "safe account" now. Then a "government official" calls to confirm it's all real. Each fake authority backs up the last, until your savings are gone.</p>
+              <span class="flip-hint">Counter <span>→</span></span>
+            </div>
+            <div class="face face-back">
+              <span class="bl-label counter">The counter</span><span class="bl-rule"></span>
+              <p class="body">No real bank or agency will ever tell you to move money to a "safe account" or install remote-access software. Hang up and call the institution on the number printed on your card or its official site.</p>
+              <div class="example"><span class="ex-l">In the wild</span><p>The FBI warned about this "phantom hacker" scheme in 2023; it has since taken over $1 billion, most of it from victims over 60. <em>(FBI IC3, 2023.)</em></p></div>
+              <p class="credit">Compiled by the CPE 510 team</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="pattern">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">03</span><h2>The pattern</h2><span class="label of">From the survey</span></div>
+    <p class="sec-intro reveal">We collected scam reports from students and the public, not to retell each story, but to find what they had in common. Eleven from the team, twelve from the public. Of those twelve public stories, five people lost money and seven saw it coming. Twenty-three stories, one clear shape.</p>
+
+    <div class="stat-row reveal">
+      <div class="stat"><div class="n num">23</div><div class="l">Stories gathered</div></div>
+      <div class="stat"><div class="n num">11</div><div class="l">From the team</div></div>
+      <div class="stat"><div class="n num">12</div><div class="l">From the public</div></div>
+      <div class="stat"><div class="n num">5</div><div class="l">Towns &amp; cities</div></div>
+    </div>
+
+    <div class="findings">
+      <div class="finding reveal"><span class="f-num num">i</span><div><h3 class="f-title">Impersonation leads</h3><p>Most reports began the same way: someone pretending to be a bank, an official, or a person the victim already knew. Trust is the door every one of them walks through.</p></div></div>
+      <div class="finding reveal"><span class="f-num num">ii</span><div><h3 class="f-title">Not one was a "hack"</h3><p>No virus. No breached system. Every single report was a person being persuaded to act. The vulnerability was human judgement under pressure, which is exactly why policy, not software, is the defence.</p></div></div>
+      <div class="finding reveal"><span class="f-num num">iii</span><div><h3 class="f-title">Warning is what worked</h3><p>Of those who avoided the scam, most had been told beforehand what it would look like, a bank officer's warning, a story from a friend. Knowing the move is the counter to the move.</p></div></div>
+      <div class="finding reveal"><span class="f-num num">iv</span><div><h3 class="f-title">The ask is always money or a code</h3><p>Transfers, OTPs, marketplace payments, "processing fees." However the story starts, it funnels to one thing: moving value out of your reach and into theirs.</p></div></div>
+      <div class="finding reveal"><span class="f-num num">v</span><div><h3 class="f-title">It's happening here</h3><p>Akure, Ondo, Ogun, Ibadan, Lagos. Not "somewhere on the internet", in our own towns, to people we know, this week.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="policy">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">04</span><h2>The policy</h2><span class="label of">NIST SP 800-83</span></div>
+    <p class="sec-intro reveal">NIST SP 800-83 names four elements of malware prevention, <em>policy, awareness, vulnerability mitigation, and threat mitigation</em>. Policy comes first: in Stallings' words, it "provides a basis for implementing appropriate preventative countermeasures." This project owns that element.</p>
+
+    <blockquote class="epigraph reveal">
+      <p>"A security policy is a statement of what is, and what is not, allowed."</p>
+      <cite>, Matt Bishop, Introduction to Computer Security (2005)</cite>
+    </blockquote>
+
+    <div class="elements reveal">
+      <div class="el active"><div class="el-n num">01</div><h4>Policy</h4><p>Documented rules that make prevention enforceable and assign accountability.</p><span class="tagme">This project</span></div>
+      <div class="el"><div class="el-n num">02</div><h4>Awareness</h4><p>Teaching people to recognise the tricks before they arrive.</p></div>
+      <div class="el"><div class="el-n num">03</div><h4>Vulnerability mitigation</h4><p>Patching, least privilege, and hardening to shrink the attack surface.</p></div>
+      <div class="el"><div class="el-n num">04</div><h4>Threat mitigation</h4><p>Detection, containment, and response once something gets through.</p></div>
+    </div>
+
+    <div class="rules">
+      <div class="rule reveal"><div class="r-num">01 · Purpose</div><h3>People are the target</h3><p>Social engineering attacks people, not machines. No antivirus stops a person being talked into trusting the wrong thing, only knowing the move does. This policy makes that knowledge the default.</p></div>
+      <div class="rule reveal"><div class="r-num">02 · Scope</div><h3>Everyone, every channel</h3><p>All students, staff, and contractors. Any account or device. Every channel the attacks arrive through, phone, email, WhatsApp, in person, QR codes.</p></div>
+      <div class="rule reveal"><div class="r-num">03 · The rules</div><h3>Five that hold</h3><p>Your password, OTP, and PIN are secret, nobody legitimate asks. Verify unexpected requests through a known channel. Urgency plus authority is a red flag, not a reason to rush. Don't run unknown files or plug in unknown drives. Turn on two-step verification.</p></div>
+      <div class="rule reveal"><div class="r-num">04 · Reporting</div><h3>Tell someone the same day</h3><p>Report anything suspicious to ICT the same day. Good-faith reports are never punished, that line is what makes people report instead of hiding it.</p></div>
+      <div class="rule reveal"><div class="r-num">05 · Roles</div><h3>Shared responsibility</h3><p>ICT owns and enforces it. HODs and deans promote it. Staff and students follow and report. One careless click can reach the whole network.</p></div>
+      <div class="rule reveal"><div class="r-num">06 · Review</div><h3>Kept current</h3><p>Reviewed regularly, because the tricks change. Deepfakes were on no one's list two years ago. A policy that doesn't update is already out of date.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="appendix">
+  <div class="wrap">
+    <div class="report">
+      <div class="sec-mark reveal"><span class="no num">05</span><h2>If it happens</h2><span class="label of">First minutes</span></div>
+      <p class="sec-intro reveal">Falling for one of these isn't foolish, it's engineered to work on smart people in a hurry. What matters is the next few minutes.</p>
+      <div class="steps">
+        <div class="step reveal"><div class="s-n">Step 01</div><h3>Cut it off</h3><p>Stop replying. Send nothing more. If an account is involved, change the password from a device you trust.</p></div>
+        <div class="step reveal"><div class="s-n">Step 02</div><h3>Call the real people</h3><p>Your bank's official line, or FUTA ICT, the number you already know, never the one the scammer gave you.</p></div>
+        <div class="step reveal"><div class="s-n">Step 03</div><h3>Warn your circle</h3><p>If your account was used, tell your contacts it's compromised so the scam doesn't jump to them next.</p></div>
+        <div class="step reveal"><div class="s-n">Step 04</div><h3>Report it, no shame</h3><p>Reporting fast is how it gets stopped, for you and everyone after you. Good-faith reports are never punished.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">06</span><h2>Sources</h2><span class="label of">Grounding</span></div>
+    <div class="sources">
+      <div class="src reveal"><span class="s-k">Framework</span><div class="s-b">NIST SP 800-83, Guide to Malware Incident Prevention and Handling<span>"SP 800-83 lists four main elements of prevention: policy, awareness, vulnerability mitigation, and threat mitigation." (as cited in Stallings, p.360)</span></div></div>
+      <div class="src reveal"><span class="s-k">Textbook</span><div class="s-b">William Stallings, Network Security Essentials: Applications and Standards, 6th ed.<span>Pearson, 2017. §10.10 "Malware Countermeasure Approaches," pp.360–361. Definitions of malware (p.338) and social engineering (p.353).</span></div></div>
+      <div class="src reveal"><span class="s-k">Textbook</span><div class="s-b">Matt Bishop, Introduction to Computer Security<span>Addison-Wesley, 2005. Security policy defined (p.7); social engineering and the human factor (p.19).</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">The Arup deepfake fraud, 2024<span>A $25m loss to an AI-generated video call. Reported by CNN, May 2024.</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">NDDC fake-scholarship warning, 2025<span>Reported by The PUNCH.</span></div></div>
+      <div class="src reveal"><span class="s-k">Survey</span><div class="s-b">Almost Got Got scam survey, 2026<span>23 stories collected (11 from the team, 12 from the public); used to identify the pattern, not quoted individually.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="close">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">—</span><h2>This one's on all of us</h2></div>
+    <div class="col">
+      <p class="reveal">This isn't only a school project. A scam can feel far off, something you read about in the news, right up until it isn't: someone close to you gets hit, an account gets taken, and because everyone is connected, you can become the next step in an attack without ever choosing to.</p>
+      <p class="reveal">So guard the small things, because they are the whole game. Keep your passwords to yourself. Protect your privacy like it matters. Open links you trust, and when you don't trust one, open it somewhere that can't touch your machine. If you have to run code you didn't write, run it in a virtual machine.</p>
+      <p class="reveal">None of it is hard. It's just paying attention. Let's make the web feel safe again, one careful click at a time.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Almost <em class="serif-it">Got</em> Got</div>
+        <p class="foot-meta">A living field guide to the tricks aimed at all of us, built from real reports, grounded in the standard, meant to be shared.</p>
+      </div>
+      <div class="foot-right">
+        <strong>CPE 510, Computer Security Techniques</strong><br>
+        Federal University of Technology, Akure<br>
+        Prevention element: Policy · NIST SP 800-83
+      </div>
+    </div>
+    <div class="contributors">
+      <div class="c-l">Plays researched by</div>
+      <div class="chips">
+        <span class="chip">Emmanuel Alonge</span>
+        <span class="chip">Ayoola Omotayo</span>
+        <span class="chip">Victor Emmanuel</span>
+        <span class="chip">Adeoti Oluwatimilehin</span>
+        <span class="chip">Peter Aremu</span>
+        <span class="chip">Adesanya Olamide</span>
+        <span class="chip">Ayomide Adeniyi</span>
+        <span class="chip">Adesida Inioluwa</span>
+        <span class="chip">Adebesin Tolulope</span>
+        <span class="chip">and everyone who shared a report</span>
+      </div>
+    </div>
+    <p class="foot-legal">Survey reports used with consent to identify patterns; no individual is quoted. “Technology for Self Reliance.”</p>
+  </div>
+</footer>
+
+<div class="book-overlay" id="book" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Almost Got Got, book view">
+  <div class="book-bar">
+    <span class="book-counter num" id="bookCounter">, /, </span>
+    <button class="book-close" id="bookClose" type="button" aria-label="Close book view">Close ✕</button>
+  </div>
+  <div class="book-stage">
+    <button class="book-nav prev" id="bookPrev" type="button" aria-label="Previous page">‹</button>
+    <div class="book" id="bookLeaves"></div>
+    <button class="book-nav next" id="bookNext" type="button" aria-label="Next page">›</button>
+  </div>
+  <p class="book-hint">← → keys · tap page edges to turn · Esc to close</p>
+</div>
+
+<script>
+  // Flip cards
+  document.querySelectorAll('.flip').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btn.setAttribute('aria-pressed', String(btn.getAttribute('aria-pressed') !== 'true'));
+    });
+  });
+
+  // Theme toggle (three-state aware)
+  var root = document.documentElement;
+  var toggle = document.getElementById('themeToggle');
+  function systemDark(){ return window.matchMedia('(prefers-color-scheme: dark)').matches; }
+  function currentlyDark(){ var t = root.getAttribute('data-theme'); if(t==='dark') return true; if(t==='light') return false; return systemDark(); }
+  function paint(){ toggle.textContent = currentlyDark() ? '☀' : '🌙'; }
+  try { var saved = localStorage.getItem('agg-theme'); if(saved==='dark'||saved==='light') root.setAttribute('data-theme', saved); } catch(e){}
+  try { var q = new URLSearchParams(location.search).get('theme'); if(q==='light'||q==='dark') root.setAttribute('data-theme', q); } catch(e){}
+  paint();
+  toggle.addEventListener('click', function(){
+    var next = currentlyDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('agg-theme', next); } catch(e){}
+    paint();
+  });
+
+  // Scroll reveal
+  var els = document.querySelectorAll('.reveal');
+  var stillShot = false; try { stillShot = new URLSearchParams(location.search).has('still'); } catch(e){}
+  if (stillShot){
+    els.forEach(function(el){ el.classList.add('in'); });
+  } else if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+  // ===== Book view =====
+  (function(){
+    var overlay = document.getElementById('book');
+    var stage   = document.getElementById('bookLeaves');
+    var counter = document.getElementById('bookCounter');
+    var prevBtn = document.getElementById('bookPrev');
+    var nextBtn = document.getElementById('bookNext');
+    var pos = 0, leaves = [], built = false;
+
+    function chapter(num, title, intro){
+      return '<div class="leaf-inner chapter"><span class="ch-num">Chapter '+num+'</span>'
+           + '<h2 class="ch-title">'+title+'</h2><div class="ch-rule"></div><p class="ch-intro">'+intro+'</p></div>';
+    }
+
+    function build(){
+      if (built) return; built = true;
+      var pages = [], folio = 0;
+      function F(){ folio++; return '<div class="folio">, '+folio+', </div>'; }
+      function html(scope, sel){ var el = scope.querySelector(sel); return el ? el.innerHTML.trim() : ''; }
+      function text(scope, sel){ var el = scope.querySelector(sel); return el ? el.textContent.trim() : ''; }
+
+      pages.push('<div class="leaf-inner cover">'
+        + '<span class="edition">CPE 510 Field Manual · First Edition</span>'
+        + '<div class="emblem">A</div>'
+        + '<h1>Almost<br><em>Got</em> Got</h1>'
+        + '<div class="cover-rule"></div>'
+        + '<p class="cover-sub">A field manual for spotting the con before it spots you.</p>'
+        + '<p class="cover-by">A malware-prevention Policy project · Federal University of Technology, Akure</p>'
+        + '</div>');
+
+      // Foreword, the habits
+      var habits = [].slice.call(document.querySelectorAll('#principles .habit'));
+      if (habits.length){
+        var fh = '<div class="leaf-inner foreword"><span class="edition">Foreword, the habits</span>'
+               + '<h2>Six habits that beat almost everything</h2><ol class="hlist">';
+        habits.forEach(function(h){ fh += '<li>'+text(h,'.h-head')+'</li>'; });
+        fh += '</ol>' + F() + '</div>';
+        pages.push(fh);
+      }
+
+      pages.push(chapter('I', 'The Plays', 'Every scam is a move with a counter. Here is each move, how you beat it, and where it shows up in the world.'));
+      document.querySelectorAll('#plays .play .flip').forEach(function(flip, i){
+        var no = ('0' + (i+1)).slice(-2);
+        var exBody = text(flip, '.example p');
+        var story = exBody
+          ? '<div class="bl story"><span class="bl-l">'+(text(flip,'.example .ex-l')||'In the wild')+'</span><p>'+html(flip,'.example p')+'</p><p class="cred">'+html(flip,'.credit')+'</p></div>'
+          : '';
+        pages.push('<div class="leaf-inner entry">'
+          + '<div class="entry-head"><span class="entry-no">No. '+no+'</span><span>'+text(flip,'.card-emoji')+'</span></div>'
+          + '<h2>'+text(flip,'.card-name')+'</h2>'
+          + '<div class="bl move"><span class="bl-l">The move</span><p>'+html(flip,'.face-front .body')+'</p></div>'
+          + '<div class="bl counter"><span class="bl-l">The counter</span><p>'+html(flip,'.face-back .body')+'</p></div>'
+          + story + F() + '</div>');
+      });
+
+      pages.push(chapter('II', 'The Pattern', 'We collected real scam reports not to retell each story, but to find what they shared. Twenty-three stories, eleven from the team and twelve from the public. One clear shape.'));
+      var findings = [].slice.call(document.querySelectorAll('#pattern .finding'));
+      var stats = [].slice.call(document.querySelectorAll('#pattern .stat')).map(function(s){
+        return '<span><b>'+text(s,'.n')+'</b> '+text(s,'.l').toLowerCase()+'</span>';
+      });
+      for (var f = 0; f < findings.length; f += 3){
+        var fh = '<div class="leaf-inner reports">';
+        findings.slice(f, f+3).forEach(function(fi){
+          fh += '<div class="f-item"><span class="fn">'+text(fi,'.f-num')+'</span><h3>'+text(fi,'.f-title')+'</h3><p>'+html(fi,'p')+'</p></div>';
+        });
+        if (f + 3 >= findings.length) fh += '<div class="statline">'+stats.join('')+'</div>';
+        fh += F() + '</div>';
+        pages.push(fh);
+      }
+
+      pages.push(chapter('III', 'The Policy', 'NIST SP 800-83 names four elements of prevention. Policy is the first, the foundation the others depend on.'));
+      var rules = [].slice.call(document.querySelectorAll('#policy .rule'));
+      for (var r = 0; r < rules.length; r += 3){
+        var rh = '<div class="leaf-inner rules">';
+        rules.slice(r, r+3).forEach(function(rl){
+          rh += '<div class="ruleitem"><span class="rn">'+text(rl,'.r-num')+'</span><h3>'+text(rl,'h3')+'</h3><p>'+html(rl,'p')+'</p></div>';
+        });
+        rh += F() + '</div>';
+        pages.push(rh);
+      }
+
+      var rep = document.querySelector('#appendix');
+      if (rep){
+        var ap = '<div class="leaf-inner appendix"><span class="edition">Appendix</span><h2>'+text(rep,'.sec-mark h2')+'</h2>';
+        rep.querySelectorAll('.step').forEach(function(stp){
+          ap += '<div class="ap-step"><span class="rn">'+text(stp,'.s-n')+'</span><h3>'+text(stp,'h3')+'</h3><p>'+html(stp,'p')+'</p></div>';
+        });
+        ap += F() + '</div>';
+        pages.push(ap);
+      }
+
+      var cl = document.querySelector('#close');
+      if (cl){
+        var cp = '<div class="leaf-inner appendix"><span class="edition">A note before you go</span><h2>'+text(cl,'.sec-mark h2')+'</h2>';
+        cl.querySelectorAll('.col p').forEach(function(p){ cp += '<p style="margin-bottom:1rem;line-height:1.55;">'+p.innerHTML+'</p>'; });
+        cp += F() + '</div>';
+        pages.push(cp);
+      }
+
+      var chips = [].slice.call(document.querySelectorAll('.contributors .chip')).map(function(c){ return c.textContent.trim(); });
+      pages.push('<div class="leaf-inner colophon">'
+        + '<div class="emblem" style="width:30px;height:30px;background:var(--ink);color:var(--page);display:grid;place-items:center;border-radius:2px;font-family:Fraunces,serif;font-weight:900;margin-bottom:.4rem;">A</div>'
+        + '<h2>Colophon</h2>'
+        + '<p class="col-lead">A living field guide, built from real reports, kept honest, meant to be shared.</p>'
+        + '<div class="col-block"><span class="edition">Plays researched by</span><p>'+chips.join(' · ')+'</p></div>'
+        + '<p class="col-legal">CPE 510, Computer Security Techniques · Federal University of Technology, Akure. Prevention element: Policy · NIST SP 800-83. Survey reports used with consent; no individual quoted. “Technology for Self Reliance.”</p>'
+        + '</div>');
+
+      pages.forEach(function(h){
+        var leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.innerHTML = h;
+        stage.appendChild(leaf);
+        leaves.push(leaf);
+      });
+      layout();
+    }
+
+    function layout(){
+      var n = leaves.length;
+      leaves.forEach(function(leaf, i){
+        var flipped = i < pos;
+        leaf.classList.toggle('flipped', flipped);
+        leaf.style.zIndex = flipped ? i : (n - i);
+        leaf.setAttribute('aria-hidden', (i === pos) ? 'false' : 'true');
+      });
+      counter.textContent = Math.min(pos + 1, n) + ' / ' + n;
+      prevBtn.disabled = pos === 0;
+      nextBtn.disabled = pos >= n - 1;
+    }
+
+    function go(dir){
+      var moving;
+      if (dir > 0 && pos < leaves.length - 1){ moving = leaves[pos]; pos++; }
+      else if (dir < 0 && pos > 0){ pos--; moving = leaves[pos]; }
+      else return;
+      if (moving){
+        moving.classList.add('turning');
+        var done = function(){ moving.classList.remove('turning'); layout(); moving.removeEventListener('transitionend', done); };
+        moving.addEventListener('transitionend', done);
+      }
+      layout();
+    }
+
+    function open(){ build(); overlay.classList.add('on'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
+    function close(){ overlay.classList.remove('on'); overlay.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; }
+
+    document.getElementById('openBook').addEventListener('click', open);
+    var ob2 = document.getElementById('openBook2'); if (ob2) ob2.addEventListener('click', open);
+    document.getElementById('bookClose').addEventListener('click', close);
+    nextBtn.addEventListener('click', function(){ go(1); });
+    prevBtn.addEventListener('click', function(){ go(-1); });
+    document.addEventListener('keydown', function(e){
+      if (!overlay.classList.contains('on')) return;
+      if (e.key === 'ArrowRight') go(1);
+      else if (e.key === 'ArrowLeft') go(-1);
+      else if (e.key === 'Escape') close();
+    });
+    stage.addEventListener('click', function(e){
+      if (e.target.closest('a')) return;
+      var rect = this.getBoundingClientRect();
+      var rel = (e.clientX - rect.left) / rect.width;
+      if (rel > 0.62) go(1); else if (rel < 0.38) go(-1);
+    });
+    var x0 = null;
+    overlay.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    overlay.addEventListener('touchend', function(e){
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45){ dx < 0 ? go(1) : go(-1); }
+      x0 = null;
+    });
+
+    if (location.hash === '#book') { try { open(); } catch(e){} }
+  })();
+</script>
+
+</body>
+</html>
