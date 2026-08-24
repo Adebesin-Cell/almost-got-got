@@ -1044,6 +1044,9 @@
         var flipped = i < pos;
         leaf.classList.toggle('flipped', flipped);
         leaf.style.zIndex = flipped ? i : (n - i);
+        // Only paint the current spread and its neighbours; the rest can't be
+        // seen and shouldn't cost the compositor a layer each.
+        leaf.style.visibility = (Math.abs(i - pos) <= 1) ? 'visible' : 'hidden';
         leaf.setAttribute('aria-hidden', (i === pos) ? 'false' : 'true');
       });
       counter.textContent = Math.min(pos + 1, n) + ' / ' + n;
