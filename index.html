@@ -297,13 +297,24 @@
 
   /* ---------- Appendix / report ---------- */
   .report{ }
-  .steps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0; border-top:1px solid var(--line); }
-  .step{ padding:1.6rem 1.4rem 1.6rem 0; border-right:1px solid var(--line); }
-  .step:last-child{ border-right:none; }
+  /* column gap and padding-right are equal, so each divider sits with the same
+     air on both sides; the first column stays flush with the section text above */
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:0 2rem; border-top:1px solid var(--line); }
+  .step{ padding:1.6rem 2rem 1.6rem 0; border-right:1px solid var(--line); }
+  .step:last-child{ border-right:none; padding-right:0; }
   .step .s-n{ font-variant-numeric:tabular-nums; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); }
   .step h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.12rem; margin:.5rem 0 .4rem; }
   .step p{ color:var(--soft); font-size:.9rem; }
-  @media (max-width:640px){ .step{ border-right:none; border-bottom:1px solid var(--line); padding-right:0; } .step:last-child{ border-bottom:none; } }
+  @media (max-width:900px){
+    .steps{ grid-template-columns:repeat(2,1fr); }
+    .step:nth-child(2n){ border-right:none; padding-right:0; }
+    .step:nth-child(-n+2){ border-bottom:1px solid var(--line); }
+  }
+  @media (max-width:640px){
+    .steps{ grid-template-columns:1fr; gap:0; }
+    .step{ border-right:none; border-bottom:1px solid var(--line); padding-right:0; }
+    .step:last-child{ border-bottom:none; }
+  }
 
   /* ---------- Sources ---------- */
   .sources{ display:grid; gap:0; }
