@@ -12,7 +12,8 @@ Most policy reads like a legal notice. This one reads like a playbook: the attac
 
 - **15 plays** — OTP theft, WhatsApp takeover, deepfake voice, quishing, pig butchering, and more. Each has a move, a counter, and a real cited case.
 - **6 habits** — the handful of reflexes that beat almost everything.
-- **The pattern** — what 23 real scam reports (11 from our team, 12 from the public) had in common.
+- **The pattern** — what 100 real scam reports, gathered across 21 named locations, had in common — with charts regenerated from the raw CSV by `scripts/build_charts.py`.
+- **The case file** — six publicly documented incidents (npm maintainers, ReliaQuest, Levi Strauss, Apollo, Retool, Arup) showing the same moves land on trained professionals.
 - **The policy** — the adoptable version underneath, grounded in SP 800-83.
 - **Read as a book** — the same content as a page-turning field manual.
 

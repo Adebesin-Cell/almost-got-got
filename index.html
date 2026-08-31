@@ -50,6 +50,107 @@
     --sh-book: 0 12px 44px rgba(0,0,0,.5);
   }
 
+
+
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]) .viz{
+      --viz-mark:#CFC7BA; --viz-mark-mute:#4A443B;
+      --dv-got:#D9694E; --dv-almost:#6B645A; --dv-spot:#3E9E73;
+    }
+  }
+  :root[data-theme="dark"] .viz{
+      --viz-mark:#CFC7BA; --viz-mark-mute:#4A443B;
+      --dv-got:#D9694E; --dv-almost:#6B645A; --dv-spot:#3E9E73;
+  }
+  /* ===== survey charts ===== */
+  .viz{ margin:2.6rem 0 0; }
+  .viz + .viz{ margin-top:3.2rem; }
+  .viz-cap{ margin-bottom:1.1rem; }
+  .viz-cap h3{ font-family:"Fraunces",Georgia,serif; font-size:1.12rem; font-weight:650; letter-spacing:-.01em; margin:0; }
+  .viz-sub{ margin:.35rem 0 0; font-size:.86rem; line-height:1.5; color:var(--soft); max-width:62ch; }
+  .viz-note{ margin:.85rem 0 0; font-size:.8rem; line-height:1.5; color:var(--faint); max-width:66ch; }
+
+  /* one hue for a single-series magnitude chart */
+  .viz{ --viz-mark:#3A342C; --viz-mark-mute:#C6C0B6;
+        --dv-got:#A5321E; --dv-almost:#BFB9AE; --dv-spot:#0F6E45; --dv-surface:var(--page); }
+
+  /* horizontal bars */
+  .hbars{ display:grid; gap:2px; }
+  .hbar{ display:grid; grid-template-columns:minmax(0,10.5rem) 1fr 2.2rem; align-items:center; gap:.75rem;
+         padding:.2rem 0; border-radius:2px; outline-offset:2px; }
+  .hbar:hover, .hbar:focus-visible{ background:color-mix(in srgb, var(--ink) 4%, transparent); }
+  .hb-l{ font-family:"Jost",sans-serif; font-size:.8rem; color:var(--ink); text-align:right; line-height:1.25; }
+  .hb-track{ height:18px; display:block; }
+  .hb-fill{ display:block; height:100%; background:var(--viz-mark);
+            border-radius:0 4px 4px 0; min-width:2px; }
+  .hb-v{ font-family:"Jost",sans-serif; font-size:.8rem; font-variant-numeric:tabular-nums; color:var(--soft); }
+  .hbar.is-muted .hb-fill{ background:var(--viz-mark-mute); }
+  .hbar.is-muted .hb-l, .hbar.is-muted .hb-v{ color:var(--faint); }
+
+  /* diverging stacked bars, centred on the neutral middle category */
+  .dv-legend{ display:flex; flex-wrap:wrap; gap:.15rem 1.1rem; margin-bottom:.9rem;
+              font-family:"Jost",sans-serif; font-size:.78rem; color:var(--soft); }
+  .dv-key{ display:inline-flex; align-items:center; gap:.4rem; }
+  .dv-key .sw{ width:10px; height:10px; border-radius:2px; flex:none; }
+  .sw.got{ background:var(--dv-got); } .sw.almost{ background:var(--dv-almost); } .sw.spot{ background:var(--dv-spot); }
+  .dvrows{ display:grid; gap:3px; }
+  .dvrow{ display:grid; grid-template-columns:minmax(0,10.5rem) 1fr; align-items:center; gap:.75rem;
+          padding:.18rem 0; border-radius:2px; }
+  .dvrow:hover{ background:color-mix(in srgb, var(--ink) 4%, transparent); }
+  .dv-l{ font-family:"Jost",sans-serif; font-size:.8rem; color:var(--ink); text-align:right; line-height:1.25; }
+  .dv-l em{ font-style:normal; color:var(--faint); font-variant-numeric:tabular-nums; }
+  .dv-plot{ display:grid; grid-template-columns:2.6rem 1fr 1fr 2.6rem; align-items:center; gap:0;
+            position:relative; }
+  /* the centre line the bars are measured from */
+  .dv-plot::before{ content:""; position:absolute; left:50%; top:-1px; bottom:-1px; width:1px;
+                    background:var(--line-2); transform:translateX(-.5px); }
+  .dv-half{ display:flex; height:18px; gap:2px; min-width:0; }
+  .dv-half.l{ flex-direction:row-reverse; }
+  .dv-seg{ display:block; flex-grow:0; flex-shrink:1; min-width:0; outline-offset:2px; }
+  .dv-seg.got{ background:var(--dv-got); } .dv-seg.almost{ background:var(--dv-almost); } .dv-seg.spot{ background:var(--dv-spot); }
+  .dv-half.l .dv-seg:last-child{ border-radius:4px 0 0 4px; }
+  .dv-half.r .dv-seg:last-child{ border-radius:0 4px 4px 0; }
+  .dv-end{ font-family:"Jost",sans-serif; font-size:.76rem; font-variant-numeric:tabular-nums; color:var(--soft); }
+  .dv-end.left{ text-align:right; padding-right:.5rem; } .dv-end.right{ text-align:left; padding-left:.5rem; }
+  .dvrow.is-muted{ opacity:.62; }
+  .dvrow.is-muted .dv-l{ color:var(--faint); }
+
+  /* table view */
+  .viz-table{ margin-top:2rem; border-top:1px solid var(--line); padding-top:.9rem; }
+  .viz-table summary{ font-family:"Jost",sans-serif; font-size:.8rem; color:var(--soft); cursor:pointer; }
+  .viz-table summary:hover{ color:var(--ink); }
+  .viz-table .t-scroll{ overflow-x:auto; margin-top:1rem; }
+  .viz-table table{ width:100%; min-width:34rem; border-collapse:collapse; font-size:.82rem; }
+  .viz-table caption{ text-align:left; font-family:"Jost",sans-serif; font-size:.76rem; color:var(--faint);
+                      margin-bottom:.5rem; }
+  .viz-table th, .viz-table td{ padding:.42rem .5rem; border-bottom:1px solid var(--line); text-align:right;
+                                font-variant-numeric:tabular-nums; }
+  .viz-table thead th{ font-family:"Jost",sans-serif; font-weight:500; font-size:.74rem; color:var(--soft);
+                       letter-spacing:.02em; }
+  .viz-table th[scope=row]{ text-align:left; font-weight:400; font-variant-numeric:normal; }
+  .viz-table tbody tr:hover{ background:color-mix(in srgb, var(--ink) 4%, transparent); }
+
+  /* tooltip */
+  .viz-tip{ position:fixed; z-index:60; pointer-events:none; opacity:0; transform:translate(-50%,-118%);
+            background:var(--ink); color:var(--page); font-family:"Jost",sans-serif; font-size:.76rem;
+            line-height:1.35; padding:.4rem .55rem; border-radius:3px; max-width:16rem;
+            box-shadow:0 4px 14px rgba(0,0,0,.18); transition:opacity .12s; }
+  .viz-tip.on{ opacity:1; }
+
+  @media (max-width:640px){
+    /* stack the label over its bar; keep the value on the same row as the label */
+    .hbar{ grid-template-columns:1fr auto; gap:.15rem .5rem; }
+    .hb-l{ text-align:left; grid-column:1; }
+    .hb-v{ grid-column:2; text-align:right; }
+    .hb-track{ grid-column:1 / -1; }
+    .dvrow{ grid-template-columns:1fr; gap:.15rem; }
+    .dv-l{ text-align:left; }
+    .dv-plot{ grid-template-columns:2.1rem 1fr 1fr 2.1rem; }
+    .dv-end{ font-size:.7rem; }
+    .dv-end.left{ padding-right:.3rem; } .dv-end.right{ padding-left:.3rem; }
+  }
+  @media (prefers-reduced-motion:reduce){ .viz-tip{ transition:none; } }
+
   *{ box-sizing:border-box; }
   html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
   body{
@@ -361,6 +462,7 @@
     <nav class="mast-nav">
       <a href="#plays">Plays</a>
       <a href="#pattern">Pattern</a>
+      <a href="#casefile">Cases</a>
       <a href="#policy">Policy</a>
       <a href="#sources">Sources</a>
     </nav>
@@ -749,13 +851,13 @@
 <section id="pattern">
   <div class="wrap">
     <div class="sec-mark reveal"><span class="no num">03</span><h2>The pattern</h2><span class="label of">From the survey</span></div>
-    <p class="sec-intro reveal">We collected scam reports from students and the public, not to retell each story, but to find what they had in common. Eleven from the team, twelve from the public. Of those twelve public stories, five people lost money and seven saw it coming. Twenty-three stories, one clear shape.</p>
+    <p class="sec-intro reveal">We collected scam reports from students and the public, not to retell each story, but to find what they had in common. One hundred responses. Thirty-four people lost money or access, thirty-two caught it just in time, thirty-three saw it coming from the first line. Different towns, different scripts, one clear shape.</p>
 
     <div class="stat-row reveal">
-      <div class="stat"><div class="n num">23</div><div class="l">Stories gathered</div></div>
-      <div class="stat"><div class="n num">11</div><div class="l">From the team</div></div>
-      <div class="stat"><div class="n num">12</div><div class="l">From the public</div></div>
-      <div class="stat"><div class="n num">5</div><div class="l">Towns &amp; cities</div></div>
+      <div class="stat"><div class="n num">100</div><div class="l">Stories gathered</div></div>
+      <div class="stat"><div class="n num">34</div><div class="l">Lost money or access</div></div>
+      <div class="stat"><div class="n num">32</div><div class="l">Caught it just in time</div></div>
+      <div class="stat"><div class="n num">21</div><div class="l">Places named</div></div>
     </div>
 
     <div class="findings">
@@ -763,14 +865,166 @@
       <div class="finding reveal"><span class="f-num num">ii</span><div><h3 class="f-title">Not one was a "hack"</h3><p>No virus. No breached system. Every single report was a person being persuaded to act. The vulnerability was human judgement under pressure, which is exactly why policy, not software, is the defence.</p></div></div>
       <div class="finding reveal"><span class="f-num num">iii</span><div><h3 class="f-title">Warning is what worked</h3><p>Of those who avoided the scam, most had been told beforehand what it would look like, a bank officer's warning, a story from a friend. Knowing the move is the counter to the move.</p></div></div>
       <div class="finding reveal"><span class="f-num num">iv</span><div><h3 class="f-title">The ask is always money or a code</h3><p>Transfers, OTPs, marketplace payments, "processing fees." However the story starts, it funnels to one thing: moving value out of your reach and into theirs.</p></div></div>
-      <div class="finding reveal"><span class="f-num num">v</span><div><h3 class="f-title">It's happening here</h3><p>Akure, Ondo, Ogun, Ibadan, Lagos. Not "somewhere on the internet", in our own towns, to people we know, this week.</p></div></div>
+      <div class="finding reveal"><span class="f-num num">v</span><div><h3 class="f-title">It's happening here</h3><p>Akure, Lagos, Ibadan, Abuja, Kano, Kaduna, Port Harcourt, Uyo, Benin, Yola, Bauchi, Sapele, and more, twenty-one places named in all, with one report from the United States. Not "somewhere on the internet", in our own towns, to people we know, this week.</p></div></div>
+    </div>
+
+    <!-- CHARTS:START  generated by scripts/build_charts.py, do not hand-edit -->
+<figure class="viz" role="group" aria-labelledby="vizC-t">
+<figcaption class="viz-cap"><h3 id="vizC-t">How it ended, overall</h3><p class="viz-sub">Every response that answered, n=99. Left of the centre line the scam worked; right of it, it did not.</p></figcaption>
+<div class="dv-legend">
+<span class="dv-key"><i class="sw got"></i>Got them</span>
+<span class="dv-key"><i class="sw almost"></i>Caught it in time</span>
+<span class="dv-key"><i class="sw spot"></i>Spotted it at once</span>
+</div><div class="dvrows">
+<div class="dvrow"><span class="dv-l">All responses <em>n=99</em></span><span class="dv-plot"><span class="dv-end left">34%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:16.162%" tabindex="0" data-tip="All responses — Caught it in time: 32 of 99 (32%)"></span><span class="dv-seg got" style="flex-basis:34.343%" tabindex="0" data-tip="All responses — Got them: 34 of 99 (34%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:16.162%" tabindex="0" data-tip="All responses — Caught it in time: 32 of 99 (32%)"></span><span class="dv-seg spot" style="flex-basis:33.333%" tabindex="0" data-tip="All responses — Spotted it at once: 33 of 99 (33%)"></span></span><span class="dv-end right">33%</span></span></div>
+</div>
+</figure>
+<figure class="viz" role="group" aria-labelledby="vizA-t">
+<figcaption class="viz-cap"><h3 id="vizA-t">What kind of scam was it?</h3>
+<p class="viz-sub">All 100 responses, one answer each. Bars share a single colour, length is the only comparison.</p></figcaption>
+<div class="hbars">
+<div class="hbar" tabindex="0" data-tip="OTP / PIN theft — 15 of 100 responses (15%)"><span class="hb-l">OTP / PIN theft</span><span class="hb-track"><span class="hb-fill" style="width:65.22%"></span></span><span class="hb-v">15</span></div>
+<div class="hbar" tabindex="0" data-tip="Account takeover — 13 of 100 responses (13%)"><span class="hb-l">Account takeover</span><span class="hb-track"><span class="hb-fill" style="width:56.52%"></span></span><span class="hb-v">13</span></div>
+<div class="hbar" tabindex="0" data-tip="Fake tech support — 13 of 100 responses (13%)"><span class="hb-l">Fake tech support</span><span class="hb-track"><span class="hb-fill" style="width:56.52%"></span></span><span class="hb-v">13</span></div>
+<div class="hbar" tabindex="0" data-tip="Phishing link — 8 of 100 responses (8%)"><span class="hb-l">Phishing link</span><span class="hb-track"><span class="hb-fill" style="width:34.78%"></span></span><span class="hb-v">8</span></div>
+<div class="hbar" tabindex="0" data-tip="Fake scholarship / job — 6 of 100 responses (6%)"><span class="hb-l">Fake scholarship / job</span><span class="hb-track"><span class="hb-fill" style="width:26.09%"></span></span><span class="hb-v">6</span></div>
+<div class="hbar" tabindex="0" data-tip="Fake login page — 5 of 100 responses (5%)"><span class="hb-l">Fake login page</span><span class="hb-track"><span class="hb-fill" style="width:21.74%"></span></span><span class="hb-v">5</span></div>
+<div class="hbar" tabindex="0" data-tip="Fake-payment refund — 4 of 100 responses (4%)"><span class="hb-l">Fake-payment refund</span><span class="hb-track"><span class="hb-fill" style="width:17.39%"></span></span><span class="hb-v">4</span></div>
+<div class="hbar" tabindex="0" data-tip="Romance / marketplace — 3 of 100 responses (3%)"><span class="hb-l">Romance / marketplace</span><span class="hb-track"><span class="hb-fill" style="width:13.04%"></span></span><span class="hb-v">3</span></div>
+<div class="hbar" tabindex="0" data-tip="&quot;Found&quot; USB drive — 2 of 100 responses (2%)"><span class="hb-l">&quot;Found&quot; USB drive</span><span class="hb-track"><span class="hb-fill" style="width:8.70%"></span></span><span class="hb-v">2</span></div>
+<div class="hbar" tabindex="0" data-tip="Deepfake voice — 2 of 100 responses (2%)"><span class="hb-l">Deepfake voice</span><span class="hb-track"><span class="hb-fill" style="width:8.70%"></span></span><span class="hb-v">2</span></div>
+<div class="hbar" tabindex="0" data-tip="Free-wifi / QR trap — 2 of 100 responses (2%)"><span class="hb-l">Free-wifi / QR trap</span><span class="hb-track"><span class="hb-fill" style="width:8.70%"></span></span><span class="hb-v">2</span></div>
+<div class="hbar" tabindex="0" data-tip="Tailgating — 2 of 100 responses (2%)"><span class="hb-l">Tailgating</span><span class="hb-track"><span class="hb-fill" style="width:8.70%"></span></span><span class="hb-v">2</span></div>
+<div class="hbar is-muted" tabindex="0" data-tip="Something else — 23 of 100 responses (23%)"><span class="hb-l">Something else</span><span class="hb-track"><span class="hb-fill" style="width:100.00%"></span></span><span class="hb-v">23</span></div>
+<div class="hbar is-muted" tabindex="0" data-tip="Not sure — 2 of 100 responses (2%)"><span class="hb-l">Not sure</span><span class="hb-track"><span class="hb-fill" style="width:8.70%"></span></span><span class="hb-v">2</span></div>
+</div><p class="viz-note">The two muted rows at the bottom are catch-all options, not findings. "Something else" is the single largest single answer at 23 of 100, which caps how much weight the ranking above it can carry: a fifth of respondents did not see their scam in our list.</p>
+</figure>
+<figure class="viz" role="group" aria-labelledby="vizB-t">
+<figcaption class="viz-cap"><h3 id="vizB-t">Which scams actually work</h3><p class="viz-sub">Share of each scam type by outcome, ranked by how often it succeeded. Only types with four or more reports are ranked.</p></figcaption>
+<div class="dv-legend">
+<span class="dv-key"><i class="sw got"></i>Got them</span>
+<span class="dv-key"><i class="sw almost"></i>Caught it in time</span>
+<span class="dv-key"><i class="sw spot"></i>Spotted it at once</span>
+</div><div class="dvrows">
+<div class="dvrow"><span class="dv-l">Fake-payment refund <em>n=4</em></span><span class="dv-plot"><span class="dv-end left">75%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:12.500%" tabindex="0" data-tip="Fake-payment refund — Caught it in time: 1 of 4 (25%)"></span><span class="dv-seg got" style="flex-basis:75.000%" tabindex="0" data-tip="Fake-payment refund — Got them: 3 of 4 (75%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:12.500%" tabindex="0" data-tip="Fake-payment refund — Caught it in time: 1 of 4 (25%)"></span></span><span class="dv-end right">0%</span></span></div>
+<div class="dvrow"><span class="dv-l">Fake scholarship / job <em>n=6</em></span><span class="dv-plot"><span class="dv-end left">50%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:16.667%" tabindex="0" data-tip="Fake scholarship / job — Caught it in time: 2 of 6 (33%)"></span><span class="dv-seg got" style="flex-basis:50.000%" tabindex="0" data-tip="Fake scholarship / job — Got them: 3 of 6 (50%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:16.667%" tabindex="0" data-tip="Fake scholarship / job — Caught it in time: 2 of 6 (33%)"></span><span class="dv-seg spot" style="flex-basis:16.667%" tabindex="0" data-tip="Fake scholarship / job — Spotted it at once: 1 of 6 (17%)"></span></span><span class="dv-end right">17%</span></span></div>
+<div class="dvrow"><span class="dv-l">Fake login page <em>n=5</em></span><span class="dv-plot"><span class="dv-end left">40%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:20.000%" tabindex="0" data-tip="Fake login page — Caught it in time: 2 of 5 (40%)"></span><span class="dv-seg got" style="flex-basis:40.000%" tabindex="0" data-tip="Fake login page — Got them: 2 of 5 (40%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:20.000%" tabindex="0" data-tip="Fake login page — Caught it in time: 2 of 5 (40%)"></span><span class="dv-seg spot" style="flex-basis:20.000%" tabindex="0" data-tip="Fake login page — Spotted it at once: 1 of 5 (20%)"></span></span><span class="dv-end right">20%</span></span></div>
+<div class="dvrow"><span class="dv-l">Phishing link <em>n=8</em></span><span class="dv-plot"><span class="dv-end left">38%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:12.500%" tabindex="0" data-tip="Phishing link — Caught it in time: 2 of 8 (25%)"></span><span class="dv-seg got" style="flex-basis:37.500%" tabindex="0" data-tip="Phishing link — Got them: 3 of 8 (38%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:12.500%" tabindex="0" data-tip="Phishing link — Caught it in time: 2 of 8 (25%)"></span><span class="dv-seg spot" style="flex-basis:37.500%" tabindex="0" data-tip="Phishing link — Spotted it at once: 3 of 8 (38%)"></span></span><span class="dv-end right">38%</span></span></div>
+<div class="dvrow"><span class="dv-l">Account takeover <em>n=13</em></span><span class="dv-plot"><span class="dv-end left">31%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:15.385%" tabindex="0" data-tip="Account takeover — Caught it in time: 4 of 13 (31%)"></span><span class="dv-seg got" style="flex-basis:30.769%" tabindex="0" data-tip="Account takeover — Got them: 4 of 13 (31%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:15.385%" tabindex="0" data-tip="Account takeover — Caught it in time: 4 of 13 (31%)"></span><span class="dv-seg spot" style="flex-basis:38.462%" tabindex="0" data-tip="Account takeover — Spotted it at once: 5 of 13 (38%)"></span></span><span class="dv-end right">38%</span></span></div>
+<div class="dvrow"><span class="dv-l">OTP / PIN theft <em>n=15</em></span><span class="dv-plot"><span class="dv-end left">13%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:10.000%" tabindex="0" data-tip="OTP / PIN theft — Caught it in time: 3 of 15 (20%)"></span><span class="dv-seg got" style="flex-basis:13.333%" tabindex="0" data-tip="OTP / PIN theft — Got them: 2 of 15 (13%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:10.000%" tabindex="0" data-tip="OTP / PIN theft — Caught it in time: 3 of 15 (20%)"></span><span class="dv-seg spot" style="flex-basis:66.667%" tabindex="0" data-tip="OTP / PIN theft — Spotted it at once: 10 of 15 (67%)"></span></span><span class="dv-end right">67%</span></span></div>
+<div class="dvrow"><span class="dv-l">Fake tech support <em>n=13</em></span><span class="dv-plot"><span class="dv-end left">0%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:23.077%" tabindex="0" data-tip="Fake tech support — Caught it in time: 6 of 13 (46%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:23.077%" tabindex="0" data-tip="Fake tech support — Caught it in time: 6 of 13 (46%)"></span><span class="dv-seg spot" style="flex-basis:53.846%" tabindex="0" data-tip="Fake tech support — Spotted it at once: 7 of 13 (54%)"></span></span><span class="dv-end right">54%</span></span></div>
+<div class="dvrow"><span class="dv-l">Other (5 types) <em>n=11</em></span><span class="dv-plot"><span class="dv-end left">18%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:31.818%" tabindex="0" data-tip="Other (5 types) — Caught it in time: 7 of 11 (64%)"></span><span class="dv-seg got" style="flex-basis:18.182%" tabindex="0" data-tip="Other (5 types) — Got them: 2 of 11 (18%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:31.818%" tabindex="0" data-tip="Other (5 types) — Caught it in time: 7 of 11 (64%)"></span><span class="dv-seg spot" style="flex-basis:18.182%" tabindex="0" data-tip="Other (5 types) — Spotted it at once: 2 of 11 (18%)"></span></span><span class="dv-end right">18%</span></span></div>
+<div class="dvrow is-muted"><span class="dv-l">Something else <em>n=23</em></span><span class="dv-plot"><span class="dv-end left">61%</span><span class="dv-half l"><span class="dv-seg almost" style="flex-basis:10.870%" tabindex="0" data-tip="Something else — Caught it in time: 5 of 23 (22%)"></span><span class="dv-seg got" style="flex-basis:60.870%" tabindex="0" data-tip="Something else — Got them: 14 of 23 (61%)"></span></span><span class="dv-half r"><span class="dv-seg almost" style="flex-basis:10.870%" tabindex="0" data-tip="Something else — Caught it in time: 5 of 23 (22%)"></span><span class="dv-seg spot" style="flex-basis:13.043%" tabindex="0" data-tip="Something else — Spotted it at once: 3 of 23 (13%)"></span></span><span class="dv-end right">13%</span></span></div>
+<div class="dvrow is-muted"><span class="dv-l">Not sure <em>n=2</em></span><span class="dv-plot"><span class="dv-end left">50%</span><span class="dv-half l"><span class="dv-seg got" style="flex-basis:50.000%" tabindex="0" data-tip="Not sure — Got them: 1 of 2 (50%)"></span></span><span class="dv-half r"><span class="dv-seg spot" style="flex-basis:50.000%" tabindex="0" data-tip="Not sure — Spotted it at once: 1 of 2 (50%)"></span></span><span class="dv-end right">50%</span></span></div>
+</div>
+<p class="viz-note">Read the ranking, not the individual bars: at these sample sizes a single response moves a row several points. The pattern worth keeping is the spread between the top and bottom rows, not the exact percentages.</p>
+</figure>
+<details class="viz-table"><summary>View the figures as a table</summary>
+<div class="t-scroll">
+<table><caption>Scam type by outcome, all responses</caption><thead><tr><th scope="col">Scam type</th>
+<th scope="col">Got them</th>
+<th scope="col">Caught it in time</th>
+<th scope="col">Spotted it at once</th>
+<th scope="col">No answer</th><th scope="col">Total</th></tr></thead><tbody>
+<tr><th scope="row">OTP / PIN theft</th>
+<td>2</td>
+<td>3</td>
+<td>10</td>
+<td>0</td><td>15</td></tr>
+<tr><th scope="row">Account takeover</th>
+<td>4</td>
+<td>4</td>
+<td>5</td>
+<td>0</td><td>13</td></tr>
+<tr><th scope="row">Fake tech support</th>
+<td>0</td>
+<td>6</td>
+<td>7</td>
+<td>0</td><td>13</td></tr>
+<tr><th scope="row">Phishing link</th>
+<td>3</td>
+<td>2</td>
+<td>3</td>
+<td>0</td><td>8</td></tr>
+<tr><th scope="row">Fake scholarship / job</th>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td><td>6</td></tr>
+<tr><th scope="row">Fake login page</th>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>0</td><td>5</td></tr>
+<tr><th scope="row">Fake-payment refund</th>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td><td>4</td></tr>
+<tr><th scope="row">Romance / marketplace</th>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td><td>3</td></tr>
+<tr><th scope="row">&quot;Found&quot; USB drive</th>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td><td>2</td></tr>
+<tr><th scope="row">Deepfake voice</th>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td><td>2</td></tr>
+<tr><th scope="row">Free-wifi / QR trap</th>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td><td>2</td></tr>
+<tr><th scope="row">Tailgating</th>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td><td>2</td></tr>
+<tr><th scope="row">Something else</th>
+<td>14</td>
+<td>5</td>
+<td>3</td>
+<td>1</td><td>23</td></tr>
+<tr><th scope="row">Not sure</th>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td><td>2</td></tr>
+</tbody></table></div><p class="viz-note">n=100 responses.</p></details>
+<!-- CHARTS:END -->
+  </div>
+</section>
+
+<section id="casefile">
+  <div class="wrap">
+    <div class="sec-mark reveal"><span class="no num">04</span><h2>The case file</h2><span class="label of">Same moves, bigger targets</span></div>
+    <p class="sec-intro reveal">A fair objection to any survey like ours: these are students and ordinary people, so maybe the professionals are fine. They are not. Below are documented incidents, each one publicly reported, each one a person with real security training making the same call our respondents made. The move does not change when the target gets sophisticated. Only the size of the loss does.</p>
+
+    <div class="findings">
+      <div class="finding reveal"><span class="f-num num">i</span><div><h3 class="f-title">The developer who clicked the link</h3><p>September 2025: a maintainer of <em>chalk</em> and <em>debug</em>, npm packages pulled billions of times a week, received an email from <em>support@npmjs.help</em> saying his two-factor credentials needed updating or the account would be locked. He updated them on the attacker's page. Eighteen packages were poisoned within the hour, and the payload reached every project that installed them. He is a career developer. The email was an OTP-reset scare, play No. 01, with a lookalike domain, play No. 04. <em>Reported by The Hacker News, Wiz and Trend Micro.</em></p></div></div>
+
+      <div class="finding reveal"><span class="f-num num">ii</span><div><h3 class="f-title">A security company's own staff, nine days ago</h3><p>22 August 2026: attackers registered a lookalike domain, stood up a fake single-sign-on page, then phoned ReliaQuest employees one by one, each caller naming a real colleague from the security team. One teammate entered their password and approved the push notification. ReliaQuest sells threat detection for a living. What saved them was not that nobody fell for it, someone did, it was device trust blocking the attacker's laptop from every application behind that login. <em>ReliaQuest's own published incident report, 25 August 2026.</em></p></div></div>
+
+      <div class="finding reveal"><span class="f-num num">iii</span><div><h3 class="f-title">Sixteen days before that, and again this month</h3><p>Levi Strauss disclosed on 10 August 2026 that social engineering got attackers onto three employees' work computers. On 21 August, Apollo Global Management, a firm managing over a trillion dollars, confirmed attackers had talked their way into its cloud systems and reached Social Security numbers. Neither was a software exploit. Both were conversations. <em>Reported by The Register and Bloomberg.</em></p></div></div>
+
+      <div class="finding reveal"><span class="f-num num">iv</span><div><h3 class="f-title">When the code came from the phone in his pocket</h3><p>August 2023: Retool staff got a text claiming IT needed them to fix an account issue affecting their healthcare coverage, timed to a real Okta migration already underway. One employee signed in on the fake portal. The attacker then cloned that employee's voice and called the IT desk for one more code. Because Google Authenticator had recently begun syncing codes to the cloud, breaking into the Google account handed over every other code too. Twenty-seven customer accounts followed. <em>Retool's own post-incident write-up; BleepingComputer, September 2023.</em></p></div></div>
+
+      <div class="finding reveal"><span class="f-num num">v</span><div><h3 class="f-title">The meeting where everyone was fake</h3><p>January 2024: a finance employee at Arup's Hong Kong office was suspicious of an email from the CFO asking for a confidential transaction, so he did the responsible thing and joined a video call to confirm it. The CFO was there. So were colleagues he recognised. Every face and voice on that call was generated from Arup's own public videos. He made fifteen transfers totalling roughly $25 million. Verification is only verification if the channel is one <em>you</em> chose. <em>Reported by CNN, May 2024.</em></p></div></div>
+
+      <div class="finding reveal"><span class="f-num num">vi</span><div><h3 class="f-title">And it is accelerating</h3><p>Thirty-seven separate npm supply-chain campaigns hit 497 packages in the first half of 2026 alone, against fourteen campaigns and 111 packages across all of 2025. On 4 August 2026 the maintainer of <em>keyv</em>, roughly 127 million downloads a week, had their GitHub account taken and a credential-stealing worm pushed through the whole package family. Every one of those campaigns starts with a person, not a vulnerability. <em>Reported by Aikido and Wiz, August 2026.</em></p></div></div>
     </div>
   </div>
 </section>
 
 <section id="policy">
   <div class="wrap">
-    <div class="sec-mark reveal"><span class="no num">04</span><h2>The policy</h2><span class="label of">NIST SP 800-83</span></div>
+    <div class="sec-mark reveal"><span class="no num">05</span><h2>The policy</h2><span class="label of">NIST SP 800-83</span></div>
     <p class="sec-intro reveal">NIST SP 800-83 names four elements of malware prevention, <em>policy, awareness, vulnerability mitigation, and threat mitigation</em>. Policy comes first: in Stallings' words, it "provides a basis for implementing appropriate preventative countermeasures." This project owns that element.</p>
 
     <blockquote class="epigraph reveal">
@@ -799,7 +1053,7 @@
 <section id="appendix">
   <div class="wrap">
     <div class="report">
-      <div class="sec-mark reveal"><span class="no num">05</span><h2>If it happens</h2><span class="label of">First minutes</span></div>
+      <div class="sec-mark reveal"><span class="no num">06</span><h2>If it happens</h2><span class="label of">First minutes</span></div>
       <p class="sec-intro reveal">Falling for one of these isn't foolish, it's engineered to work on smart people in a hurry. What matters is the next few minutes.</p>
       <div class="steps">
         <div class="step reveal"><div class="s-n">Step 01</div><h3>Cut it off</h3><p>Stop replying. Send nothing more. If an account is involved, change the password from a device you trust.</p></div>
@@ -813,14 +1067,19 @@
 
 <section id="sources">
   <div class="wrap">
-    <div class="sec-mark reveal"><span class="no num">06</span><h2>Sources</h2><span class="label of">Grounding</span></div>
+    <div class="sec-mark reveal"><span class="no num">07</span><h2>Sources</h2><span class="label of">Grounding</span></div>
     <div class="sources">
       <div class="src reveal"><span class="s-k">Framework</span><div class="s-b">NIST SP 800-83, Guide to Malware Incident Prevention and Handling<span>"SP 800-83 lists four main elements of prevention: policy, awareness, vulnerability mitigation, and threat mitigation." (as cited in Stallings, p.360)</span></div></div>
       <div class="src reveal"><span class="s-k">Textbook</span><div class="s-b">William Stallings, Network Security Essentials: Applications and Standards, 6th ed.<span>Pearson, 2017. §10.10 "Malware Countermeasure Approaches," pp.360–361. Definitions of malware (p.338) and social engineering (p.353).</span></div></div>
       <div class="src reveal"><span class="s-k">Textbook</span><div class="s-b">Matt Bishop, Introduction to Computer Security<span>Addison-Wesley, 2005. Security policy defined (p.7); social engineering and the human factor (p.19).</span></div></div>
-      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">The Arup deepfake fraud, 2024<span>A $25m loss to an AI-generated video call. Reported by CNN, May 2024.</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">The Arup deepfake fraud, 2024<span>A $25m loss to an AI-generated video call. <a href="https://www.cnn.com/2024/05/16/tech/arup-deepfake-scam-loss-hong-kong-intl-hnk">CNN</a>, May 2024.</span></div></div>
       <div class="src reveal"><span class="s-k">Case</span><div class="s-b">NDDC fake-scholarship warning, 2025<span>Reported by The PUNCH.</span></div></div>
-      <div class="src reveal"><span class="s-k">Survey</span><div class="s-b">Almost Got Got scam survey, 2026<span>23 stories collected (11 from the team, 12 from the public); used to identify the pattern, not quoted individually.</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">npm maintainer phishing, September 2025<span>The <em>chalk</em> / <em>debug</em> compromise via the lookalike domain npmjs.help. <a href="https://thehackernews.com/2025/09/18-popular-npm-packages-hijacked.html">The Hacker News</a>; <a href="https://www.trendmicro.com/en_us/research/25/i/npm-supply-chain-attack.html">Trend Micro</a>.</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">ReliaQuest vishing attempt, 22 August 2026<span>Fake SSO page plus phone calls impersonating named colleagues. <a href="https://reliaquest.com/blog/threat-spotlight-social-engineering-attempt-against-reliaquest-what-we-found/">ReliaQuest incident report</a>; <a href="https://www.helpnetsecurity.com/2026/08/25/reliaquest-breach-social-engineering/">Help Net Security</a>.</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">Levi Strauss, August 2026; Apollo Global Management, August 2026<span>Two social-engineering breaches disclosed within a fortnight. <a href="https://www.theregister.com/security/2026/08/10/attackers-pick-levis-pockets-in-social-engineering-attack/5285401">The Register</a>; <a href="https://www.theregister.com/cyber-crime/2026/08/24/1t-investment-giant-apollo-breached-after-social-engineering-attack/5291609">The Register</a>.</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">Retool, August 2023<span>SMS phish, a deepfaked voice to the IT desk, and MFA codes synced to the cloud. <a href="https://retool.com/blog/mfa-isnt-mfa">Retool</a>; <a href="https://www.bleepingcomputer.com/news/security/retool-blames-breach-on-google-authenticator-mfa-cloud-sync-feature/">BleepingComputer</a>.</span></div></div>
+      <div class="src reveal"><span class="s-k">Case</span><div class="s-b">keyv supply-chain compromise, 4 August 2026<span>Maintainer GitHub account taken; credential-stealing worm pushed to ~127m weekly downloads. <a href="https://www.wiz.io/blog/keyv-and-cacheable-npm-supply-chain-attack">Wiz</a>; <a href="https://www.aikido.dev/blog/keyv-and-friends-compromised-in-npm-supply-chain-attack">Aikido</a>.</span></div></div>
+      <div class="src reveal"><span class="s-k">Survey</span><div class="s-b">Almost Got Got scam survey, 2026<span>100 responses collected 23&ndash;31 August 2026, twenty-one places named, predominantly Nigeria with one report from the United States. 34 lost money or access, 32 caught it in time, 33 spotted it immediately (1 did not answer). 84 respondents gave permission to use their story. Used to identify the pattern, not quoted individually. Charts regenerated from the raw CSV by <code>scripts/build_charts.py</code>.</span></div></div>
     </div>
   </div>
 </section>
@@ -975,7 +1234,7 @@
           + story + F() + '</div>');
       });
 
-      pages.push(chapter('II', 'The Pattern', 'We collected real scam reports not to retell each story, but to find what they shared. Twenty-three stories, eleven from the team and twelve from the public. One clear shape.'));
+      pages.push(chapter('II', 'The Pattern', 'We collected real scam reports not to retell each story, but to find what they shared. One hundred responses, twenty-one places named. One clear shape.'));
       var findings = [].slice.call(document.querySelectorAll('#pattern .finding'));
       var stats = [].slice.call(document.querySelectorAll('#pattern .stat')).map(function(s){
         return '<span><b>'+text(s,'.n')+'</b> '+text(s,'.l').toLowerCase()+'</span>';
@@ -990,7 +1249,18 @@
         pages.push(fh);
       }
 
-      pages.push(chapter('III', 'The Policy', 'NIST SP 800-83 names four elements of prevention. Policy is the first, the foundation the others depend on.'));
+      pages.push(chapter('III', 'The Case File', 'The same moves, aimed at people paid to know better. Every incident here is publicly documented.'));
+      var cases = [].slice.call(document.querySelectorAll('#casefile .finding'));
+      for (var c = 0; c < cases.length; c += 2){
+        var ch = '<div class="leaf-inner reports">';
+        cases.slice(c, c+2).forEach(function(ci){
+          ch += '<div class="f-item"><span class="fn">'+text(ci,'.f-num')+'</span><h3>'+text(ci,'.f-title')+'</h3><p>'+html(ci,'p')+'</p></div>';
+        });
+        ch += F() + '</div>';
+        pages.push(ch);
+      }
+
+      pages.push(chapter('IV', 'The Policy', 'NIST SP 800-83 names four elements of prevention. Policy is the first, the foundation the others depend on.'));
       var rules = [].slice.call(document.querySelectorAll('#policy .rule'));
       for (var r = 0; r < rules.length; r += 3){
         var rh = '<div class="leaf-inner rules">';
@@ -1097,6 +1367,32 @@
     });
 
     if (location.hash === '#book') { try { open(); } catch(e){} }
+  })();
+
+  /* ---- chart tooltips ---- */
+  (function(){
+    var tip = null;
+    function show(el, x, y){
+      var t = el.getAttribute('data-tip'); if (!t) return;
+      if (!tip){ tip = document.createElement('div'); tip.className = 'viz-tip'; tip.setAttribute('role','status'); document.body.appendChild(tip); }
+      tip.textContent = t;
+      tip.style.left = x + 'px'; tip.style.top = y + 'px';
+      tip.classList.add('on');
+    }
+    function hide(){ if (tip) tip.classList.remove('on'); }
+    function target(e){ return e.target.closest && e.target.closest('[data-tip]'); }
+    document.addEventListener('pointermove', function(e){
+      var el = target(e);
+      if (el) show(el, e.clientX, e.clientY); else hide();
+    }, {passive:true});
+    document.addEventListener('pointerleave', hide, {passive:true});
+    document.addEventListener('focusin', function(e){
+      var el = target(e); if (!el) return hide();
+      var r = el.getBoundingClientRect();
+      show(el, r.left + r.width/2, r.top);
+    });
+    document.addEventListener('focusout', hide);
+    window.addEventListener('scroll', hide, {passive:true});
   })();
 </script>
 

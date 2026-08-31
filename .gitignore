@@ -2,3 +2,6 @@
 .DS_Store
 *.log
 screenshots/
+
+# raw survey exports — contain respondent emails and free-text stories
+*.csv
